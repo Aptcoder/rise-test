@@ -7,8 +7,8 @@ export default {
   jwtSecret: process.env.JWT_SECRET,
   database: {
     host: process.env.DB_HOST,
-    port: 5678,
-    username: 'root',
+    port: 5432,
+    username: 'samuel',
     password: process.env.DB_PASSWORD,
     database: 'rise'
   },
