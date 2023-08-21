@@ -7,6 +7,5 @@ module.exports = {
     'ts-jest': {
       tsconfig: './tests/jest.tsconfig.json'
     }
-  },
-  globalSetup: './tests/setup.ts',
+  }
 };
