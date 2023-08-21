@@ -3,7 +3,7 @@ import { CreateUserDTO } from "../../src/utils/dtos/user.dtos";
 import { IUser } from "../../src/utils/interfaces/entities.interfaces";
 import { IUserRepository } from "../../src/utils/interfaces/repos.interfaces";
 import { UserRole } from "../../src/entities/user.entity";
-const sampleUser: IUser = {
+export const sampleUser: IUser = {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     dateJoined: new Date(),
@@ -28,7 +28,7 @@ export const mockUserRepository: IUserRepository = {
     findAll: function (): Promise<IUser[]> {
         throw new Error("Function not implemented.");
     },
-    findByEmail: function (email: string): Promise<IUser | null> {
+    findByEmail: function (): Promise<IUser | null> {
         return Promise.resolve(sampleUser)
     }
 }  
