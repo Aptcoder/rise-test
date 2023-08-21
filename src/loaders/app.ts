@@ -4,7 +4,7 @@
 import express, {
   Application, NextFunction, Response, Request
 } from 'express';
-import { IContainer } from '../common/types';
+import { IContainer } from '../utils/types';
 
 const loadApp = ({ app, Container}: { app: any, Container: IContainer  }) => {
   app.use(express.json());
