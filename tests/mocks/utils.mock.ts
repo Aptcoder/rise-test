@@ -1,9 +1,9 @@
-import { Response, Request, NextFunction } from 'express'
+import { Response, Request, NextFunction } from "express"
 
 export const mockReq = {
     user: {
-        email: 'sample@gmail.com',
-        id: '3',
+        email: "sample@gmail.com",
+        id: "3",
     },
 } as any as Request
 
@@ -14,6 +14,4 @@ export const mockRes = {
     send: jest.fn(),
 } as unknown as Response
 
-export const mockNext = {
-    
-} as NextFunction
+export const mockNext = {} as NextFunction

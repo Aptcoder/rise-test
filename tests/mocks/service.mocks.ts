@@ -1,15 +1,12 @@
-import { sampleUser } from "./user.repo"
+import { IUserService } from "src/utils/interfaces/services.interfaces";
+import { sampleUser } from "./user.repo";
 
-export const mockUserService = {
-    createUserCall: 0,
+export const mockUserService: IUserService = {
+  createUser() {
+    return Promise.resolve(sampleUser);
+  },
 
-    createUser(){
-        this.createUserCall = this.createUserCall + 1
-        return Promise.resolve(sampleUser)
-    },
-
-    getUsers() {
-        return Promise.resolve([sampleUser])
-    },
-}
-
+  getUsers() {
+    return Promise.resolve([sampleUser]);
+  },
+};
