@@ -24,6 +24,10 @@ export default class FileService implements IFileService {
     ) {
         this.fileRepository = fileRepository
     }
+    async getFiles() {
+        const files = await this.fileRepository.findAll()
+        return files
+    }
 
     async createFile(input: CreateFileInput): Promise<IFile> {
         return this.fileRepository.create(input)

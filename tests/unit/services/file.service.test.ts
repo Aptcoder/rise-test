@@ -2,7 +2,7 @@ import Container from "typedi"
 import { mockFileRepository, sampleFile } from "../../mocks/repo.mocks"
 import FileService from "../../../src/services/file.service"
 
-describe("User service", () => {
+describe("File service", () => {
     let fileService: FileService
 
     beforeEach(async () => {

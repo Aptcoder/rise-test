@@ -1,5 +1,10 @@
-import { IUserService } from "src/utils/interfaces/services.interfaces"
-import { sampleUser } from "./repo.mocks"
+import {
+    IFileService,
+    IUserService,
+} from "src/utils/interfaces/services.interfaces"
+import { sampleFile, sampleUser } from "./repo.mocks"
+import { CreateFileInput } from "src/services/file.service"
+import { IFile } from "src/utils/interfaces/entities.interfaces"
 
 export const mockUserService: IUserService = {
     createUser() {
@@ -15,5 +20,14 @@ export const mockUserService: IUserService = {
 
     getUsers() {
         return Promise.resolve([sampleUser])
+    },
+}
+
+export const mockFileService: IFileService = {
+    createFile: function (input: CreateFileInput): Promise<IFile> {
+        return Promise.resolve(sampleFile)
+    },
+    getFiles: function (): Promise<IFile[]> {
+        return Promise.resolve([sampleFile])
     },
 }
