@@ -13,4 +13,5 @@ export interface IUserService {
 export interface IFileService {
     createFile(input: CreateFileInput): Promise<IFile>
     getFiles(): Promise<IFile[]>
+    getFile(key: string): Promise<IFile>
 }

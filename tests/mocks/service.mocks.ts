@@ -5,6 +5,9 @@ import {
 import { sampleFile, sampleUser } from "./repo.mocks"
 import { CreateFileInput } from "src/services/file.service"
 import { IFile } from "src/utils/interfaces/entities.interfaces"
+import { StorageService } from "src/services/providers/storage/stoarage.service"
+import { createReadStream } from "fs"
+import { Multer } from "multer"
 
 export const mockUserService: IUserService = {
     createUser() {
@@ -30,4 +33,15 @@ export const mockFileService: IFileService = {
     getFiles: function (): Promise<IFile[]> {
         return Promise.resolve([sampleFile])
     },
+    getFile: function (key: string): Promise<IFile> {
+        return Promise.resolve(sampleFile)
+    },
+}
+
+export const mockStorageService: StorageService = {
+    async getObject(key: string) {
+        const stream = createReadStream("./mockfiles/test.txt")
+        return stream
+    },
+    upload: {} as Multer,
 }

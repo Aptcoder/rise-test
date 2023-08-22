@@ -1,13 +1,17 @@
 import Container from "typedi"
 import UserController from "../../../src/controllers/user.controller"
 import { mockReq, mockRes } from "../../mocks/utils.mock"
-import { mockFileService } from "../../../tests/mocks/service.mocks"
+import {
+    mockFileService,
+    mockStorageService,
+} from "../../../tests/mocks/service.mocks"
 import { Request } from "express"
 import FileController from "../../../src/controllers/file.controller"
 import { sampleFile } from "../../mocks/repo.mocks"
 
 describe("File controller", () => {
     Container.set({ id: "file_service", value: mockFileService })
+    Container.set({ id: "storage_service", value: mockStorageService })
     const fileController = Container.get(FileController)
 
     beforeEach(() => {

@@ -1,9 +1,10 @@
-import { S3Client } from "@aws-sdk/client-s3"
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3"
 import config from "config"
 import { Request } from "express"
 import multer from "multer"
 import multerS3 from "multer-s3"
 import { BadRequestError } from "../../../utils/errors"
+import { Stream } from "stream"
 
 const validFileFormats = new Set([
     "image/jpeg",
@@ -63,4 +64,16 @@ export class StorageService {
             },
         }),
     })
+
+    public async getObject(key: string, range?: string): Promise<Stream> {
+        const input = {
+            Bucket: "be-practice",
+            Key: key,
+        }
+
+        const command = new GetObjectCommand(input)
+        const response = await s3.send(command)
+
+        return response.Body as Stream
+    }
 }

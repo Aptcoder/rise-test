@@ -28,4 +28,12 @@ describe("File service", () => {
         expect(createSpy).toHaveBeenCalledTimes(1)
         expect(file.originalName).toBe(fileData.originalname)
     })
+
+    test("Service should get file", async () => {
+        const findSpy = jest.spyOn(mockFileRepository, "findByKey")
+        const file = await fileService.getFile("key")
+
+        expect(findSpy).toHaveBeenCalledTimes(1)
+        expect(findSpy).toHaveBeenCalledWith("key")
+    })
 })
