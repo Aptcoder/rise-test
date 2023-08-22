@@ -1,7 +1,10 @@
 import { faker } from "@faker-js/faker"
 import { CreateUserDTO } from "../../src/utils/dtos/user.dtos"
-import { IUser } from "../../src/utils/interfaces/entities.interfaces"
-import { IUserRepository } from "../../src/utils/interfaces/repos.interfaces"
+import { IFile, IUser } from "../../src/utils/interfaces/entities.interfaces"
+import {
+    IFileRepository,
+    IUserRepository,
+} from "../../src/utils/interfaces/repos.interfaces"
 import { UserRole } from "../../src/entities/user.entity"
 
 export const sampleUser: IUser = {
@@ -14,6 +17,17 @@ export const sampleUser: IUser = {
     save: jest.fn(),
     email: faker.internet.email(),
     password: faker.internet.password(),
+}
+
+export const sampleFile: IFile = {
+    originalName: faker.person.fullName(),
+    key: faker.internet.exampleEmail(),
+    size: faker.number.int(),
+    location: faker.internet.url(),
+    id: faker.person.fullName(),
+    deletedAt: new Date(),
+    createdAt: new Date(),
+    mimeType: "pdf",
 }
 
 export const mockUserRepository: IUserRepository = {
@@ -32,5 +46,17 @@ export const mockUserRepository: IUserRepository = {
     },
     findByEmail: function (): Promise<IUser | null> {
         return Promise.resolve(sampleUser)
+    },
+}
+
+export const mockFileRepository: IFileRepository = {
+    create(fileInput) {
+        return Promise.resolve(sampleFile)
+    },
+    findAll: function (): Promise<IFile[]> {
+        return Promise.resolve([sampleFile])
+    },
+    findByKey: function (key: string): Promise<IFile | null> {
+        return Promise.resolve(sampleFile)
     },
 }

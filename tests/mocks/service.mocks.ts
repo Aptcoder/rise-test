@@ -1,5 +1,5 @@
 import { IUserService } from "src/utils/interfaces/services.interfaces"
-import { sampleUser } from "./user.repo"
+import { sampleUser } from "./repo.mocks"
 
 export const mockUserService: IUserService = {
     createUser() {

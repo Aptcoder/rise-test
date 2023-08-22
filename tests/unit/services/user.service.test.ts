@@ -1,5 +1,5 @@
 import Container from "typedi"
-import { mockUserRepository } from "../..//mocks/user.repo"
+import { mockUserRepository } from "../../mocks/repo.mocks"
 import { IUserService } from "../../../src/utils/interfaces/services.interfaces"
 import UserService from "../../../src/services/user.service"
 import { APIError, ConflictError } from "../../../src/utils/errors"
