@@ -1,6 +1,7 @@
 import { CreateFileInput } from "src/services/file.service"
 import { AuthUserDto, CreateUserDTO } from "../dtos/user.dtos"
-import { IFile, IUser } from "./entities.interfaces"
+import { IFile, IFolder, IUser } from "./entities.interfaces"
+import { CreateFolderDTO } from "../dtos/file.dtos"
 
 export interface IUserService {
     createUser(createUserDto: CreateUserDTO): Promise<IUser>
@@ -14,4 +15,10 @@ export interface IFileService {
     createFile(input: CreateFileInput): Promise<IFile>
     getFiles(): Promise<IFile[]>
     getFile(key: string): Promise<IFile>
+}
+
+export interface IFolderService {
+    createFolder(input: CreateFolderDTO): Promise<IFolder>
+    // getFolders(): Promise<IFolder[]>
+    // getFolder(key: string): Promise<IFile>
 }

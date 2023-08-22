@@ -23,3 +23,9 @@ export interface IFile {
     key: string
     createdAt: Date
 }
+
+export interface IFolder {
+    id: string
+    name: string
+    files: IFile[]
+}

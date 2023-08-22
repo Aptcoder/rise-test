@@ -2,6 +2,7 @@ import { IFile, IUser } from "../utils/interfaces/entities.interfaces"
 import { IFileRepository } from "../utils/interfaces/repos.interfaces"
 import { File } from "../entities/file.entity"
 import { CreateFileInput } from "../services/file.service"
+import { In } from "typeorm"
 
 export default class FileRepository implements IFileRepository {
     async create(fileData: CreateFileInput) {
@@ -25,5 +26,14 @@ export default class FileRepository implements IFileRepository {
             },
         })
         return file
+    }
+
+    async findByKeys(keys: string[]): Promise<IFile[]> {
+        const files = await File.find({
+            where: {
+                key: In(keys),
+            },
+        })
+        return files
     }
 }
