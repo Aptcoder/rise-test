@@ -47,6 +47,9 @@ export const mockFolderService: IFolderService = {
     getFolders: function (): Promise<IFolder[]> {
         return Promise.resolve([sampleFolder])
     },
+    addFiles: function (folderId: string, fileIds: string[]): Promise<IFolder> {
+        return Promise.resolve(sampleFolder)
+    },
 }
 
 export const mockStorageService: StorageService = {

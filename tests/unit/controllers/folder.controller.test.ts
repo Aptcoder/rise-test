@@ -36,4 +36,26 @@ describe("Folder controller", () => {
             })
         )
     })
+
+    test("Controller calls add file to folder", async () => {
+        const addSpy = jest.spyOn(mockFolderService, "addFiles")
+
+        const req = {
+            ...mockReq,
+            params: {
+                folderId: "yea",
+            },
+            body: {
+                files: [],
+            },
+        } as unknown as Request
+
+        await folderController.addFilesToFolder(req, mockRes)
+        expect(addSpy).toHaveBeenCalledTimes(1)
+        expect(mockRes.send).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: "Files added to folder",
+            })
+        )
+    })
 })

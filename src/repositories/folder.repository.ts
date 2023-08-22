@@ -23,8 +23,8 @@ export default class FolderRepository implements IFolderRepository {
         return folder.save()
     }
 
-    async addFile(file: IFile, folder: IFolder) {
-        folder.files.push(file)
+    async addFiles(files: IFile[], folder: IFolder) {
+        folder.files = folder.files.concat(files)
         return (folder as Folder).save()
     }
 

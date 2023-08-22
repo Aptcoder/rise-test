@@ -63,11 +63,11 @@ describe("Folder service", () => {
     })
 
     test("Service should add file to folder", async () => {
-        const findFileSpy = jest.spyOn(mockFileRepository, "findById")
+        const findFileSpy = jest.spyOn(mockFileRepository, "findByIds")
         const findFolderSpy = jest.spyOn(mockFolderRepository, "findById")
-        const addSPy = jest.spyOn(mockFolderRepository, "addFile")
+        const addSPy = jest.spyOn(mockFolderRepository, "addFiles")
 
-        await folderService.addFile("samp", "sa")
+        await folderService.addFiles("samp", ["sa"])
 
         expect(findFileSpy).toHaveBeenCalledTimes(1)
         expect(findFolderSpy).toHaveBeenCalledTimes(1)

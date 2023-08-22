@@ -100,7 +100,7 @@ export const mockFolderRepository: IFolderRepository = {
     findById: function (id: string): Promise<IFolder | null> {
         return Promise.resolve(sampleFolder)
     },
-    addFile: function (file: IFile, folder: IFolder): Promise<IFolder> {
+    addFiles: function (files: IFile[], folder: IFolder): Promise<IFolder> {
         return Promise.resolve(sampleFolder)
     },
 }

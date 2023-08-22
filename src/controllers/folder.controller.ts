@@ -31,4 +31,18 @@ export default class FileController {
             return Helper.handleError(res, err)
         }
     }
+
+    public async addFilesToFolder(req: Request, res: Response) {
+        try {
+            const { folderId } = req.params
+            const { files } = req.body
+
+            const folder = await this.folderService.addFiles(folderId, files)
+            return Helper.formatResponse(res, "Files added to folder", {
+                folder,
+            })
+        } catch (err) {
+            return Helper.handleError(res, err)
+        }
+    }
 }
