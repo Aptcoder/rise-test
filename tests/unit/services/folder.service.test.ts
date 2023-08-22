@@ -27,11 +27,15 @@ describe("Folder service", () => {
             files: ["sample"],
         }
 
+        const findFolderSpy = jest
+            .spyOn(mockFolderRepository, "findByName")
+            .mockResolvedValue(null)
         const findSpy = jest.spyOn(mockFileRepository, "findByKeys")
         const createSpy = jest.spyOn(mockFolderRepository, "create")
         const folder = await folderService.createFolder(folderData)
 
         expect(findSpy).toHaveBeenCalledTimes(1)
+        expect(findFolderSpy).toHaveBeenCalledTimes(1)
         expect(createSpy).toHaveBeenCalledTimes(1)
         expect(folder.name).toBe(folderData.name)
     })
@@ -42,6 +46,9 @@ describe("Folder service", () => {
             files: ["sample"],
         }
 
+        const findFolderSpy = jest
+            .spyOn(mockFolderRepository, "findByName")
+            .mockResolvedValue(null)
         const findSpy = jest
             .spyOn(mockFileRepository, "findByKeys")
             .mockResolvedValue([])
@@ -51,7 +58,19 @@ describe("Folder service", () => {
             await folderService.createFolder(folderData)
         }).rejects.toBeInstanceOf(NotFoundError)
 
-        expect(findSpy).toHaveBeenCalledTimes(1)
+        expect(findFolderSpy).toHaveBeenCalledTimes(1)
         expect(createSpy).toHaveBeenCalledTimes(0)
+    })
+
+    test("Service should add file to folder", async () => {
+        const findFileSpy = jest.spyOn(mockFileRepository, "findById")
+        const findFolderSpy = jest.spyOn(mockFolderRepository, "findById")
+        const addSPy = jest.spyOn(mockFolderRepository, "addFile")
+
+        await folderService.addFile("samp", "sa")
+
+        expect(findFileSpy).toHaveBeenCalledTimes(1)
+        expect(findFolderSpy).toHaveBeenCalledTimes(1)
+        expect(addSPy).toHaveBeenCalledTimes(1)
     })
 })

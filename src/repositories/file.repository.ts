@@ -5,6 +5,21 @@ import { CreateFileInput } from "../services/file.service"
 import { In } from "typeorm"
 
 export default class FileRepository implements IFileRepository {
+    async findById(id: string): Promise<IFile | null> {
+        return File.findOne({
+            where: {
+                id,
+            },
+        })
+    }
+    async findByIds(ids: string[]): Promise<IFile[]> {
+        const files = await File.find({
+            where: {
+                key: In(ids),
+            },
+        })
+        return files
+    }
     async create(fileData: CreateFileInput) {
         const file = File.create({
             ...fileData,

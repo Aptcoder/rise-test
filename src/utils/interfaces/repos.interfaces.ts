@@ -11,12 +11,16 @@ export interface IUserRepository {
 export interface IFileRepository {
     create(fileInput: CreateFileInput): Promise<IFile>
     findAll(): Promise<IFile[]>
+    findById(id: string): Promise<IFile | null>
+    findByIds(ids: string[]): Promise<IFile[]>
     findByKey(key: string): Promise<IFile | null>
     findByKeys(keys: string[]): Promise<IFile[]>
 }
 
 export interface IFolderRepository {
     findAll(): Promise<IFolder[]>
+    findById(id: string): Promise<IFolder | null>
     findByName(name: string): Promise<IFolder | null>
     create(name: string, files?: IFile[]): Promise<IFolder>
+    addFile(file: IFile, folder: IFolder): Promise<IFolder>
 }

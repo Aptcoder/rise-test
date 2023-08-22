@@ -11,7 +11,7 @@ import { File } from "./file.entity"
 
 @Entity()
 export class Folder extends BaseEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn("uuid")
     id: string
 
     @Column({

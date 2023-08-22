@@ -4,6 +4,13 @@ import { File } from "../entities/file.entity"
 import { Folder } from "../entities/folder.entity"
 
 export default class FolderRepository implements IFolderRepository {
+    findById(id: string): Promise<IFolder | null> {
+        return Folder.findOne({
+            where: {
+                id,
+            },
+        })
+    }
     async create(name: string, files?: IFile[]) {
         const folder = Folder.create({
             name,
@@ -14,6 +21,11 @@ export default class FolderRepository implements IFolderRepository {
         }
 
         return folder.save()
+    }
+
+    async addFile(file: IFile, folder: IFolder) {
+        folder.files.push(file)
+        return (folder as Folder).save()
     }
 
     async findAll(): Promise<IFolder[]> {

@@ -48,4 +48,18 @@ export default class FolderService implements IFolderService {
 
         return this.folderRepository.create(createFolderDto.name, files)
     }
+
+    async addFile(folderId: string, fileId: string) {
+        let file = await this.fileRepository.findById(fileId)
+        if (!file) {
+            throw new NotFoundError("File not found")
+        }
+        let folder = await this.folderRepository.findById(folderId)
+        if (!folder) {
+            throw new NotFoundError("Folder not found")
+        }
+
+        const updatedFolder = this.folderRepository.addFile(file, folder)
+        return updatedFolder
+    }
 }

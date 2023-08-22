@@ -72,6 +72,12 @@ export const mockFileRepository: IFileRepository = {
     findByKeys: function (keys: string[]): Promise<IFile[]> {
         return Promise.resolve([sampleFile])
     },
+    findById: function (id: string): Promise<IFile | null> {
+        return Promise.resolve(sampleFile)
+    },
+    findByIds: function (ids: string[]): Promise<IFile[]> {
+        return Promise.resolve([sampleFile])
+    },
 }
 
 export const mockFolderRepository: IFolderRepository = {
@@ -89,6 +95,12 @@ export const mockFolderRepository: IFolderRepository = {
         return Promise.resolve(folder)
     },
     findByName: function (name: string): Promise<IFolder> {
-        throw new Error("Function not implemented.")
+        return Promise.resolve(sampleFolder)
+    },
+    findById: function (id: string): Promise<IFolder | null> {
+        return Promise.resolve(sampleFolder)
+    },
+    addFile: function (file: IFile, folder: IFolder): Promise<IFolder> {
+        return Promise.resolve(sampleFolder)
     },
 }
