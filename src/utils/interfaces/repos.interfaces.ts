@@ -17,5 +17,6 @@ export interface IFileRepository {
 
 export interface IFolderRepository {
     findAll(): Promise<IFolder[]>
+    findByName(name: string): Promise<IFolder | null>
     create(name: string, files?: IFile[]): Promise<IFolder>
 }

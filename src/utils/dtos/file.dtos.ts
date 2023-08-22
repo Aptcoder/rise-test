@@ -1,4 +1,4 @@
-import { IsArray, IsString } from "class-validator"
+import { IsArray, IsOptional, IsString } from "class-validator"
 
 export class KeyDTO {
     @IsString()
@@ -9,8 +9,7 @@ export class CreateFolderDTO {
     @IsString()
     name: string
 
-    @IsArray({
-        each: true,
-    })
-    files: Array<string>
+    @IsArray()
+    @IsOptional()
+    files: string[] = []
 }

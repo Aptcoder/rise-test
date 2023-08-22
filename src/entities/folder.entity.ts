@@ -5,6 +5,7 @@ import {
     Column,
     JoinTable,
     ManyToMany,
+    BeforeInsert,
 } from "typeorm"
 import { File } from "./file.entity"
 
@@ -15,6 +16,7 @@ export class Folder extends BaseEntity {
 
     @Column({
         nullable: false,
+        unique: true,
     })
     name: string
 
@@ -27,4 +29,9 @@ export class Folder extends BaseEntity {
 
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date
+
+    @BeforeInsert()
+    nameToLowerCase() {
+        this.name = this.name.toLowerCase()
+    }
 }

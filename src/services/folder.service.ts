@@ -1,12 +1,12 @@
 import { Service, Inject } from "typedi"
-import { IFolder } from "../utils/interfaces/entities.interfaces"
+import { IFile, IFolder } from "../utils/interfaces/entities.interfaces"
 import {
     IFileRepository,
     IFolderRepository,
 } from "../utils/interfaces/repos.interfaces"
 import { IFolderService } from "../utils/interfaces/services.interfaces"
 import { CreateFolderDTO } from "../utils/dtos/file.dtos"
-import { NotFoundError } from "../utils/errors"
+import { ConflictError, NotFoundError } from "../utils/errors"
 
 export interface CreateFileInput {
     originalname: string
@@ -29,12 +29,23 @@ export default class FolderService implements IFolderService {
     }
 
     async createFolder(createFolderDto: CreateFolderDTO): Promise<IFolder> {
-        const files = await this.fileRepository.findByKeys(
-            createFolderDto.files
+        let files: IFile[] = []
+
+        const folder = await this.folderRepository.findByName(
+            createFolderDto.name.toLocaleLowerCase()
         )
-        if (files.length < createFolderDto.files.length) {
-            throw new NotFoundError("One or more files not found")
+        if (folder) {
+            throw new ConflictError("Folder with name exists")
         }
+
+        if (createFolderDto.files) {
+            files = await this.fileRepository.findByKeys(createFolderDto.files)
+
+            if (files.length < createFolderDto.files.length) {
+                throw new NotFoundError("One or more files not found")
+            }
+        }
+
         return this.folderRepository.create(createFolderDto.name, files)
     }
 }

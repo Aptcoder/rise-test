@@ -88,4 +88,7 @@ export const mockFolderRepository: IFolderRepository = {
         folder.name = name
         return Promise.resolve(folder)
     },
+    findByName: function (name: string): Promise<IFolder> {
+        throw new Error("Function not implemented.")
+    },
 }

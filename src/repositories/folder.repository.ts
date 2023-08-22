@@ -19,4 +19,12 @@ export default class FolderRepository implements IFolderRepository {
     async findAll(): Promise<IFolder[]> {
         return Folder.find({})
     }
+
+    async findByName(name: string) {
+        return Folder.findOne({
+            where: {
+                name,
+            },
+        })
+    }
 }

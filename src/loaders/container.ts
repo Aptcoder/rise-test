@@ -8,6 +8,7 @@ import { StorageService } from "../services/providers/storage/stoarage.service"
 import FileService from "../services/file.service"
 import FileRepository from "../repositories/file.repository"
 import FolderRepository from "../repositories/folder.repository"
+import FolderService from "../services/folder.service"
 
 export const initContainer = async () => {
     const redisCache: RedisCache = await init()
@@ -25,5 +26,6 @@ export const initContainer = async () => {
     // services
     Container.set({ id: "user_service", type: UserService })
     Container.set({ id: "file_service", type: FileService })
+    Container.set({ id: "folder_service", type: FolderService })
     return Container
 }
