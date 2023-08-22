@@ -1,9 +1,7 @@
 import { IFile, IUser } from "../utils/interfaces/entities.interfaces"
 import { IFileRepository } from "../utils/interfaces/repos.interfaces"
-import User from "../entities/user.entity"
-import { CreateUserDTO } from "../utils/dtos/user.dtos"
-import { File } from "src/entities/file.entity"
-import { CreateFileInput } from "src/services/file.service"
+import { File } from "../entities/file.entity"
+import { CreateFileInput } from "../services/file.service"
 
 export default class FileRepository implements IFileRepository {
     async create(fileData: CreateFileInput) {

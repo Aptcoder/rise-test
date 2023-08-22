@@ -3,7 +3,7 @@ import config from "config"
 import { Request } from "express"
 import multer from "multer"
 import multerS3 from "multer-s3"
-import { BadRequestError } from "src/utils/errors"
+import { BadRequestError } from "../../../utils/errors"
 
 const validFileFormats = new Set([
     "image/jpeg",
@@ -22,7 +22,7 @@ const validFileFormats = new Set([
     "video/x-ms-wmv",
     "video/x-msvideo",
     "video/x-flv",
-    //   'application/pdf',
+    "application/pdf",
 ])
 
 const fileFilterFunction = (
