@@ -23,3 +23,8 @@ export class FolderParamDTO {
     @IsString()
     folderId: string
 }
+
+export class RemoveFileParam extends FolderParamDTO {
+    @IsString()
+    fileId: string
+}

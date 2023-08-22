@@ -9,6 +9,7 @@ export default class FolderRepository implements IFolderRepository {
             where: {
                 id,
             },
+            relations: ["files"],
         })
     }
     async create(name: string, files?: IFile[]) {
@@ -36,13 +37,15 @@ export default class FolderRepository implements IFolderRepository {
         }
 
         folder.files = folder.files.filter((file) => {
-            return file.id !== fileId
+            return file.id != fileId
         })
         return (folder as Folder).save()
     }
 
     async findAll(): Promise<IFolder[]> {
-        return Folder.find({})
+        return Folder.find({
+            relations: ["files"],
+        })
     }
 
     async findByName(name: string) {

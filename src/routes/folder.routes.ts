@@ -5,6 +5,7 @@ import {
     AddFileToFolderBodyDTO,
     CreateFolderDTO,
     FolderParamDTO,
+    RemoveFileParam,
 } from "../utils/dtos/file.dtos"
 import validator from "../middlewares/validator"
 
@@ -29,6 +30,14 @@ export const setupFolderRoutes = (container: IContainer) => {
             param: FolderParamDTO,
         }),
         folderController.addFilesToFolder.bind(folderController)
+    )
+
+    folderRouter.delete(
+        "/:folderId/files/:fileId",
+        validator({
+            param: RemoveFileParam,
+        }),
+        folderController.removeFileFromFolder.bind(folderController)
     )
 
     return folderRouter
