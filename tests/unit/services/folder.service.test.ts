@@ -73,4 +73,14 @@ describe("Folder service", () => {
         expect(findFolderSpy).toHaveBeenCalledTimes(1)
         expect(addSPy).toHaveBeenCalledTimes(1)
     })
+
+    test("Service should remove file from folder", async () => {
+        const findFolderSpy = jest.spyOn(mockFolderRepository, "findById")
+        const removeSpy = jest.spyOn(mockFolderRepository, "removeFile")
+
+        await folderService.removeFile("samp", "sa")
+
+        expect(findFolderSpy).toHaveBeenCalledTimes(1)
+        expect(removeSpy).toHaveBeenCalledTimes(1)
+    })
 })

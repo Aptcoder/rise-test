@@ -103,4 +103,7 @@ export const mockFolderRepository: IFolderRepository = {
     addFiles: function (files: IFile[], folder: IFolder): Promise<IFolder> {
         return Promise.resolve(sampleFolder)
     },
+    removeFile: function (fileId: string, folder: IFolder): Promise<IFolder> {
+        return Promise.resolve(sampleFolder)
+    },
 }

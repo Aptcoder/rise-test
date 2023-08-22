@@ -50,6 +50,9 @@ export const mockFolderService: IFolderService = {
     addFiles: function (folderId: string, fileIds: string[]): Promise<IFolder> {
         return Promise.resolve(sampleFolder)
     },
+    removeFile: function (folderId: string, fileId: string): Promise<IFolder> {
+        return Promise.resolve(sampleFolder)
+    },
 }
 
 export const mockStorageService: StorageService = {

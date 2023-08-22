@@ -23,4 +23,5 @@ export interface IFolderRepository {
     findByName(name: string): Promise<IFolder | null>
     create(name: string, files?: IFile[]): Promise<IFolder>
     addFiles(files: IFile[], folder: IFolder): Promise<IFolder>
+    removeFile(fileId: string, folder: IFolder): Promise<IFolder>
 }

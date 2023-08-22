@@ -62,4 +62,14 @@ export default class FolderService implements IFolderService {
         const updatedFolder = this.folderRepository.addFiles(files, folder)
         return updatedFolder
     }
+
+    async removeFile(folderId: string, fileId: string) {
+        let folder = await this.folderRepository.findById(folderId)
+        if (!folder) {
+            throw new NotFoundError("Folder not found")
+        }
+
+        const updatedFolder = this.folderRepository.removeFile(fileId, folder)
+        return updatedFolder
+    }
 }

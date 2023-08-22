@@ -1,7 +1,11 @@
 import { Router } from "express"
 import { IContainer } from "../utils/types"
 import FolderController from "../controllers/folder.controller"
-import { CreateFolderDTO } from "../utils/dtos/file.dtos"
+import {
+    AddFileToFolderBodyDTO,
+    CreateFolderDTO,
+    FolderParamDTO,
+} from "../utils/dtos/file.dtos"
 import validator from "../middlewares/validator"
 
 export const setupFolderRoutes = (container: IContainer) => {
@@ -17,5 +21,15 @@ export const setupFolderRoutes = (container: IContainer) => {
         }),
         folderController.createFolder.bind(folderController)
     )
+
+    folderRouter.post(
+        "/:folderId/files",
+        validator({
+            body: AddFileToFolderBodyDTO,
+            param: FolderParamDTO,
+        }),
+        folderController.addFilesToFolder.bind(folderController)
+    )
+
     return folderRouter
 }

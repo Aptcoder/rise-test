@@ -13,3 +13,13 @@ export class CreateFolderDTO {
     @IsOptional()
     files: string[] = []
 }
+
+export class AddFileToFolderBodyDTO {
+    @IsArray()
+    files: string
+}
+
+export class FolderParamDTO {
+    @IsString()
+    folderId: string
+}

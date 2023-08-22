@@ -21,5 +21,6 @@ export interface IFolderService {
     createFolder(input: CreateFolderDTO): Promise<IFolder>
     getFolders(): Promise<IFolder[]>
     addFiles(folderId: string, fileIds: string[]): Promise<IFolder>
+    removeFile(folderId: string, fileId: string): Promise<IFolder>
     // getFolder(key: string): Promise<IFile>
 }

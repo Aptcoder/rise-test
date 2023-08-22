@@ -15,7 +15,7 @@ export default class FileRepository implements IFileRepository {
     async findByIds(ids: string[]): Promise<IFile[]> {
         const files = await File.find({
             where: {
-                key: In(ids),
+                id: In(ids),
             },
         })
         return files
