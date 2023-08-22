@@ -4,10 +4,14 @@ import { CreateUserDTO } from "../utils/dtos/user.dtos"
 import { IUserService } from "../utils/interfaces/services.interfaces"
 import { UserRole } from "../entities/user.entity"
 import Helper from "../utils/helper"
+import { CacheService } from "../services/providers/cache/cache.service"
 
 @Service()
 export default class UserController {
-    constructor(@Inject("user_service") public userService: IUserService) {
+    constructor(
+        @Inject("user_service") public userService: IUserService,
+        @Inject("cache_service") cacheService: CacheService
+    ) {
         this.userService = userService
     }
 

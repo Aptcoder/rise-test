@@ -8,13 +8,16 @@ import { IUserService } from "src/utils/interfaces/services.interfaces"
 import jwt from "jsonwebtoken"
 import config from "config"
 import _ from "lodash"
+import { CacheService } from "./providers/cache/cache.service"
 
 @Service("user_service")
 export default class UserService implements IUserService {
     constructor(
-        @Inject("user_repository") public userRepository: IUserRepository
+        @Inject("user_repository") public userRepository: IUserRepository,
+        @Inject("cache_service") public cacheService: CacheService
     ) {
         this.userRepository = userRepository
+        this.cacheService = cacheService
     }
 
     private async hashPassword(password: string): Promise<string> {
@@ -56,6 +59,11 @@ export default class UserService implements IUserService {
 
         const { accessToken } = await this.generateToken(user)
         const userWithoutPassword = _.omit(user, "password")
+
+        await this.cacheService.set(accessToken, user.id, {
+            ttl: 60 * 60 * 1000,
+        })
+
         return { accessToken, user: userWithoutPassword }
     }
 
