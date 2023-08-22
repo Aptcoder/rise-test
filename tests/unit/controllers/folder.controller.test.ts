@@ -58,4 +58,24 @@ describe("Folder controller", () => {
             })
         )
     })
+
+    test("Controller calls remove file to folder", async () => {
+        const removeSpy = jest.spyOn(mockFolderService, "removeFile")
+
+        const req = {
+            ...mockReq,
+            params: {
+                folderId: "yea",
+                fileId: "oh",
+            },
+        } as unknown as Request
+
+        await folderController.removeFileFromFolder(req, mockRes)
+        expect(removeSpy).toHaveBeenCalledTimes(1)
+        expect(mockRes.send).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: "File removed from folder",
+            })
+        )
+    })
 })

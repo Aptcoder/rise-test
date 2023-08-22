@@ -45,4 +45,17 @@ export default class FileController {
             return Helper.handleError(res, err)
         }
     }
+
+    public async removeFileFromFolder(req: Request, res: Response) {
+        try {
+            const { folderId, fileId } = req.params
+
+            const folder = await this.folderService.removeFile(folderId, fileId)
+            return Helper.formatResponse(res, "File removed from folder", {
+                folder,
+            })
+        } catch (err) {
+            return Helper.handleError(res, err)
+        }
+    }
 }
