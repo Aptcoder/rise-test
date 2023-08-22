@@ -1,8 +1,13 @@
 import { faker } from "@faker-js/faker"
 import { CreateUserDTO } from "../../src/utils/dtos/user.dtos"
-import { IFile, IUser } from "../../src/utils/interfaces/entities.interfaces"
+import {
+    IFile,
+    IFolder,
+    IUser,
+} from "../../src/utils/interfaces/entities.interfaces"
 import {
     IFileRepository,
+    IFolderRepository,
     IUserRepository,
 } from "../../src/utils/interfaces/repos.interfaces"
 import { UserRole } from "../../src/entities/user.entity"
@@ -30,6 +35,11 @@ export const sampleFile: IFile = {
     mimeType: "pdf",
 }
 
+export const sampleFolder: IFolder = {
+    id: faker.person.fullName(),
+    name: "sample",
+    files: [sampleFile],
+}
 export const mockUserRepository: IUserRepository = {
     create: function (createUserDto: CreateUserDTO): Promise<IUser> {
         return Promise.resolve({
@@ -58,5 +68,24 @@ export const mockFileRepository: IFileRepository = {
     },
     findByKey: function (key: string): Promise<IFile | null> {
         return Promise.resolve(sampleFile)
+    },
+    findByKeys: function (keys: string[]): Promise<IFile[]> {
+        return Promise.resolve([sampleFile])
+    },
+}
+
+export const mockFolderRepository: IFolderRepository = {
+    findAll: function (): Promise<IFolder[]> {
+        throw new Error("Function not implemented.")
+    },
+    create: function (
+        name: string,
+        files?: IFile[] | undefined
+    ): Promise<IFolder> {
+        const folder = {
+            ...sampleFolder,
+        }
+        folder.name = name
+        return Promise.resolve(folder)
     },
 }
