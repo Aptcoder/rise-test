@@ -1,13 +1,15 @@
 import {
     IFileService,
+    IFolderService,
     IUserService,
-} from "src/utils/interfaces/services.interfaces"
-import { sampleFile, sampleUser } from "./repo.mocks"
-import { CreateFileInput } from "src/services/file.service"
-import { IFile } from "src/utils/interfaces/entities.interfaces"
-import { StorageService } from "src/services/providers/storage/stoarage.service"
+} from "../../src/utils/interfaces/services.interfaces"
+import { sampleFile, sampleFolder, sampleUser } from "./repo.mocks"
+import { CreateFileInput } from "../../src/services/file.service"
+import { IFile, IFolder } from "../../src/utils/interfaces/entities.interfaces"
+import { StorageService } from "../../src/services/providers/storage/stoarage.service"
 import { createReadStream } from "fs"
 import { Multer } from "multer"
+import { CreateFolderDTO } from "src/utils/dtos/file.dtos"
 
 export const mockUserService: IUserService = {
     createUser() {
@@ -35,6 +37,15 @@ export const mockFileService: IFileService = {
     },
     getFile: function (key: string): Promise<IFile> {
         return Promise.resolve(sampleFile)
+    },
+}
+
+export const mockFolderService: IFolderService = {
+    createFolder: function (input: CreateFolderDTO): Promise<IFolder> {
+        return Promise.resolve(sampleFolder)
+    },
+    getFolders: function (): Promise<IFolder[]> {
+        return Promise.resolve([sampleFolder])
     },
 }
 

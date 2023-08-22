@@ -19,6 +19,6 @@ export interface IFileService {
 
 export interface IFolderService {
     createFolder(input: CreateFolderDTO): Promise<IFolder>
-    // getFolders(): Promise<IFolder[]>
+    getFolders(): Promise<IFolder[]>
     // getFolder(key: string): Promise<IFile>
 }
