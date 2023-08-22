@@ -6,5 +6,5 @@ export interface IUserService {
     getUsers(): Promise<IUser[]>
     auth(
         authUserDto: AuthUserDto
-    ): Promise<{ accessToken: string; user: IUser }>
+    ): Promise<{ accessToken: string; user: Omit<IUser, "password"> }>
 }

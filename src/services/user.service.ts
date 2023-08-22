@@ -7,6 +7,7 @@ import { AuthUserDto, CreateUserDTO } from "../utils/dtos/user.dtos"
 import { IUserService } from "src/utils/interfaces/services.interfaces"
 import jwt from "jsonwebtoken"
 import config from "config"
+import _ from "lodash"
 
 @Service("user_service")
 export default class UserService implements IUserService {
@@ -35,9 +36,11 @@ export default class UserService implements IUserService {
         })
     }
 
-    public async auth(authUserDto: AuthUserDto) {
+    public async auth(
+        authUserDto: AuthUserDto
+    ): Promise<{ accessToken: string; user: Omit<IUser, "password"> }> {
         const { email: userEmail, password: userPassword } = authUserDto
-        const user = await this.userRepository.findByEmail(userEmail)
+        let user = await this.userRepository.findByEmail(userEmail)
 
         if (!user) {
             throw new NotFoundError("User not found")
@@ -52,8 +55,8 @@ export default class UserService implements IUserService {
         }
 
         const { accessToken } = await this.generateToken(user)
-        // const userWithoutPasssword = _.omit(user, "password")
-        return { accessToken, user }
+        const userWithoutPassword = _.omit(user, "password")
+        return { accessToken, user: userWithoutPassword }
     }
 
     public async comparePassword(inputPass: string, password: string) {
