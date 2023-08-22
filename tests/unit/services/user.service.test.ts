@@ -3,14 +3,22 @@ import { mockUserRepository } from "../..//mocks/user.repo"
 import { IUserService } from "../../../src/utils/interfaces/services.interfaces"
 import UserService from "../../../src/services/user.service"
 import { APIError, ConflictError } from "../../../src/utils/errors"
+import { caching } from "cache-manager"
+import { CacheService } from "../../../src/services/providers/cache/cache.service"
 
 describe("User service", () => {
-    Container.set({ id: "user_repository", value: mockUserRepository })
-    Container.set({ id: "user_service", type: UserService })
+    let userService: UserService
+    let cacheService: CacheService
 
-    const userService: UserService = Container.get("user_service")
+    beforeEach(async () => {
+        Container.set({ id: "user_repository", value: mockUserRepository })
+        const cache = await caching("memory")
+        cacheService = new CacheService(cache)
+        Container.set({ id: "cache_service", value: cacheService })
+        Container.set({ id: "user_service", type: UserService })
 
-    beforeEach(() => {
+        userService = Container.get("user_service")
+
         jest.restoreAllMocks()
         jest.clearAllMocks()
     })
@@ -59,6 +67,7 @@ describe("User service", () => {
             password: "good",
         }
 
+        const cacheSpy = jest.spyOn(cacheService, "set")
         const findSpy = jest.spyOn(mockUserRepository, "findByEmail")
         const compareSpy = jest
             .spyOn(userService, "comparePassword")
@@ -69,6 +78,7 @@ describe("User service", () => {
         expect(findSpy).toHaveBeenCalledTimes(1)
         expect(compareSpy).toHaveBeenCalledTimes(1)
         expect(generateSpy).toHaveBeenCalledTimes(1)
+        expect(cacheSpy).toHaveBeenCalledTimes(1)
         expect(result).toMatchObject(
             expect.objectContaining({
                 accessToken: expect.any(String),
