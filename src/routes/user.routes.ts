@@ -3,12 +3,19 @@ import UserController from "../controllers/user.controller"
 import { IContainer } from "../utils/types"
 import validator from "../middlewares/validator"
 import { AuthUserDto, CreateUserDTO } from "../utils/dtos/user.dtos"
+import { Auth as AuthService } from "../middlewares/auth"
 
 export const setupUserRoutes = (container: IContainer) => {
     const userRouter: Router = Router()
     const userController = container.get(UserController)
 
-    userRouter.get("/", userController.getAllUsers.bind(userController))
+    const authService = container.get(AuthService)
+
+    userRouter.get(
+        "/",
+        authService.auth(),
+        userController.getAllUsers.bind(userController)
+    )
 
     userRouter.post(
         "/",

@@ -4,13 +4,20 @@ import { StorageService } from "../services/providers/storage/stoarage.service"
 import FileController from "../controllers/file.controller"
 import validator from "../middlewares/validator"
 import { KeyDTO } from "../utils/dtos/file.dtos"
+import { Auth as AuthService } from "../middlewares/auth"
 
 export const setupFileRoutes = (container: IContainer) => {
     const storageService: StorageService = container.get("storage_service")
     const fileRouter: Router = Router()
     const fileController = container.get(FileController)
 
-    fileRouter.get("/", fileController.getFiles.bind(fileController))
+    const authService = container.get(AuthService)
+
+    fileRouter.get(
+        "/",
+        authService.auth(),
+        fileController.getFiles.bind(fileController)
+    )
 
     fileRouter.get(
         "/:key/download",

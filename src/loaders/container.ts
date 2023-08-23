@@ -9,6 +9,7 @@ import FileService from "../services/file.service"
 import FileRepository from "../repositories/file.repository"
 import FolderRepository from "../repositories/folder.repository"
 import FolderService from "../services/folder.service"
+import { Auth as AuthService } from "../middlewares/auth"
 
 export const initContainer = async () => {
     const redisCache: RedisCache = await init()
@@ -17,6 +18,9 @@ export const initContainer = async () => {
     const cacheService = new CacheService(redisCache)
     Container.set({ id: "cache_service", value: cacheService })
     Container.set({ id: "storage_service", type: StorageService })
+
+    // Auth service
+    Container.set({ id: "auth_service", type: AuthService })
 
     // repos
     Container.set({ id: "user_repository", type: UserRepository })

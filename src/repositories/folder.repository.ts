@@ -25,7 +25,6 @@ export default class FolderRepository implements IFolderRepository {
     }
 
     async addFiles(files: IFile[], folder: IFolder) {
-        console.log("foler", folder)
         folder.files = folder.files ? folder.files : []
         folder.files = folder.files.concat(files)
         return (folder as Folder).save()
