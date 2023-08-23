@@ -48,9 +48,4 @@ export class File extends BaseEntity {
 
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date
-
-    @BeforeInsert()
-    nameToLowerCase() {
-        this.key = this.key.toLowerCase()
-    }
 }

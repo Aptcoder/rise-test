@@ -3,7 +3,7 @@ import { IContainer } from "../utils/types"
 import { StorageService } from "../services/providers/storage/stoarage.service"
 import FileController from "../controllers/file.controller"
 import validator from "../middlewares/validator"
-import { KeyDTO } from "../utils/dtos/file.dtos"
+import { FileIdDTO, KeyDTO } from "../utils/dtos/file.dtos"
 import { Auth as AuthService } from "../middlewares/auth"
 
 export const setupFileRoutes = (container: IContainer) => {
@@ -17,6 +17,24 @@ export const setupFileRoutes = (container: IContainer) => {
         "/",
         authService.auth(),
         fileController.getFiles.bind(fileController)
+    )
+
+    fileRouter.get(
+        "/:fileId/stream",
+        validator({
+            param: FileIdDTO,
+        }),
+        // authService.auth(),
+        fileController.getFileStream.bind(fileController)
+    )
+
+    fileRouter.get(
+        "/:fileId/view",
+        validator({
+            param: FileIdDTO,
+        }),
+        // authService.auth(),
+        fileController.getFileView.bind(fileController)
     )
 
     fileRouter.get(
@@ -37,6 +55,9 @@ export const setupFileRoutes = (container: IContainer) => {
 
     fileRouter.patch(
         "/:fileId/mark_as_unsafe",
+        validator({
+            param: FileIdDTO,
+        }),
         authService.auth(["admin"]),
         fileController.markFileUnSafe.bind(fileController)
     )

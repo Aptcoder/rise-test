@@ -64,4 +64,7 @@ export const mockStorageService: StorageService = {
         return stream
     },
     upload: {} as Multer,
+    getObjectSize: function (key: string): Promise<number> {
+        throw new Error("Function not implemented.")
+    },
 }

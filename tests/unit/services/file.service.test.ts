@@ -31,7 +31,7 @@ describe("File service", () => {
     })
 
     test("Service should get file", async () => {
-        const findSpy = jest.spyOn(mockFileRepository, "findByKey")
+        const findSpy = jest.spyOn(mockFileRepository, "findById")
         const file = await fileService.getFile("key")
 
         expect(findSpy).toHaveBeenCalledTimes(1)

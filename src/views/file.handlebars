@@ -1,0 +1,22 @@
+<div class="center">
+    {{#if file}}
+
+    {{#isType file.mimeType 'video'}}
+    <video id="video" controls autoplay>
+	<source src="/api/files/{{file.id}}/stream" type="{{file.mimeType}}">
+		Sorry, it looks like your computer can't play it.
+    </video>
+    {{/isType}} 
+
+    {{#isType file.mimeType 'audio'}}
+    <audio id="video" controls autoplay>
+	<source src="/api/files/{{file.id}}/stream" type="{{file.mimeType}}">
+		Sorry, it looks like your computer can't play it.
+    </audio>
+    {{/isType}} 
+
+    {{^}}
+      Could not find file
+    {{/if}}
+
+</div>

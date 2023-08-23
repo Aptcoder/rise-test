@@ -4,6 +4,10 @@ export class KeyDTO {
     @IsString()
     key: string
 }
+export class FileIdDTO {
+    @IsString()
+    fileId: string
+}
 
 export class CreateFolderDTO {
     @IsString()

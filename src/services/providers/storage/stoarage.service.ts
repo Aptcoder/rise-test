@@ -1,4 +1,10 @@
-import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3"
+import {
+    GetObjectAttributesCommand,
+    GetObjectAttributesCommandInput,
+    GetObjectCommand,
+    GetObjectCommandInput,
+    S3Client,
+} from "@aws-sdk/client-s3"
 import config from "config"
 import { Request } from "express"
 import multer from "multer"
@@ -66,14 +72,35 @@ export class StorageService {
     })
 
     public async getObject(key: string, range?: string): Promise<Stream> {
-        const input = {
+        const input: GetObjectCommandInput = {
             Bucket: "be-practice",
             Key: key,
+        }
+
+        if (range) {
+            input.Range = range
         }
 
         const command = new GetObjectCommand(input)
         const response = await s3.send(command)
 
         return response.Body as Stream
+    }
+
+    public async getObjectSize(key: string) {
+        const input: GetObjectAttributesCommandInput = {
+            Bucket: "be-practice",
+            Key: key,
+            ObjectAttributes: ["ObjectSize"],
+        }
+
+        const command = new GetObjectAttributesCommand(input)
+        const response = await s3.send(command)
+
+        if (!response || !response.ObjectSize) {
+            throw new Error("Could not retrieve object size")
+        }
+
+        return response.ObjectSize
     }
 }
