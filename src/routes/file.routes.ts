@@ -34,5 +34,12 @@ export const setupFileRoutes = (container: IContainer) => {
         storageService.upload.single("file"),
         fileController.createFile.bind(fileController)
     )
+
+    fileRouter.patch(
+        "/:fileId/mark_as_unsafe",
+        authService.auth(["admin"]),
+        fileController.markFileUnSafe.bind(fileController)
+    )
+
     return fileRouter
 }
