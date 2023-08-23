@@ -63,8 +63,8 @@ export default class FileController {
 
     public async downloadFile(req: Request, res: Response) {
         try {
-            const { key } = req.params
-            const file = await this.fileService.getFile(key)
+            const { fileId } = req.params
+            const file = await this.fileService.getFile(fileId)
 
             const stream = await this.storageService.getObject(file.key)
             stream.pipe(res)
@@ -77,6 +77,10 @@ export default class FileController {
         try {
             const { fileId } = req.params
             const file = await this.fileService.getFile(fileId)
+
+            if (!videoAndAudioTypes.has(file.mimeType)) {
+                throw new BadRequestError("This file type can not be streamed")
+            }
 
             return res.render("file", {
                 file,

@@ -60,11 +60,11 @@ export const mockFolderService: IFolderService = {
 
 export const mockStorageService: StorageService = {
     async getObject(key: string) {
-        const stream = createReadStream("./mockfiles/test.txt")
+        const stream = createReadStream("./tests/mocks/mockfiles/read.txt")
         return stream
     },
     upload: {} as Multer,
     getObjectSize: function (key: string): Promise<number> {
-        throw new Error("Function not implemented.")
+        return Promise.resolve(5400)
     },
 }

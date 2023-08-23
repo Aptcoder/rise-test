@@ -38,10 +38,10 @@ export const setupFileRoutes = (container: IContainer) => {
     )
 
     fileRouter.get(
-        "/:key/download",
+        "/:fileId/download",
         authService.auth(),
         validator({
-            param: KeyDTO,
+            param: FileIdDTO,
         }),
         fileController.downloadFile.bind(fileController)
     )

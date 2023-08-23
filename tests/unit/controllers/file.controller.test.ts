@@ -5,9 +5,17 @@ import {
     mockFileService,
     mockStorageService,
 } from "../../../tests/mocks/service.mocks"
-import { Request } from "express"
+import { Request, Response } from "express"
 import FileController from "../../../src/controllers/file.controller"
 import { sampleFile } from "../../mocks/repo.mocks"
+import {
+    createWriteStream,
+    readFileSync,
+    truncateSync,
+    unlink,
+    unlinkSync,
+} from "fs"
+import { readFile } from "fs/promises"
 
 describe("File controller", () => {
     Container.set({ id: "file_service", value: mockFileService })
@@ -66,5 +74,29 @@ describe("File controller", () => {
                 message: "File marked as unsafe",
             })
         )
+    })
+
+    test("Controller downloads file", async () => {
+        // clear file for test
+        truncateSync("./tests/mocks/mockfiles/write.txt", 0)
+
+        const getSpy = jest.spyOn(mockFileService, "getFile")
+        const res = createWriteStream(
+            "./tests/mocks/mockfiles/write.txt"
+        ) as unknown as Response
+        const req = {
+            ...mockReq,
+            params: {
+                fileId: "a",
+            },
+        } as unknown as Request
+
+        await fileController.downloadFile(req, res)
+        expect(getSpy).toHaveBeenCalledTimes(1)
+
+        res.on("close", () => {
+            const text = readFileSync("./tests/mocks/mockfiles/write.txt")
+            expect(text.toString()).toBe("just test")
+        })
     })
 })
