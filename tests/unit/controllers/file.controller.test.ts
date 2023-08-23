@@ -48,4 +48,23 @@ describe("File controller", () => {
             })
         )
     })
+
+    test("Controller marks file unsafe", async () => {
+        const markSpy = jest.spyOn(mockFileService, "markUnsafe")
+
+        const req = {
+            ...mockReq,
+            params: {
+                fileId: "a",
+            },
+        } as unknown as Request
+
+        await fileController.markFileUnSafe(req, mockRes)
+        expect(markSpy).toHaveBeenCalledTimes(1)
+        expect(mockRes.send).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: "File marked as unsafe",
+            })
+        )
+    })
 })

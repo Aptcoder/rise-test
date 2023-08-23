@@ -57,4 +57,17 @@ export default class FileController {
             return Helper.handleError(res, err)
         }
     }
+
+    public async markFileUnSafe(req: Request, res: Response) {
+        try {
+            const { fileId } = req.params
+            const file = await this.fileService.markUnsafe(fileId)
+
+            return Helper.formatResponse(res, "File marked as unsafe", {
+                file,
+            })
+        } catch (err: any) {
+            return Helper.handleError(res, err)
+        }
+    }
 }

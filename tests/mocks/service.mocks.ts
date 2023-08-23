@@ -39,7 +39,7 @@ export const mockFileService: IFileService = {
         return Promise.resolve(sampleFile)
     },
     markUnsafe: function (fileId: string): Promise<IFile> {
-        throw new Error("Function not implemented.")
+        return Promise.resolve(sampleFile)
     },
 }
 
