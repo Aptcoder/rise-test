@@ -51,4 +51,9 @@ export default class FileRepository implements IFileRepository {
         })
         return files
     }
+
+    async update(file: IFile, update: {}): Promise<IFile> {
+        Object.assign(file, update)
+        return (file as File).save()
+    }
 }

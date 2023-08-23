@@ -38,6 +38,9 @@ export const mockFileService: IFileService = {
     getFile: function (key: string): Promise<IFile> {
         return Promise.resolve(sampleFile)
     },
+    markUnsafe: function (fileId: string): Promise<IFile> {
+        throw new Error("Function not implemented.")
+    },
 }
 
 export const mockFolderService: IFolderService = {

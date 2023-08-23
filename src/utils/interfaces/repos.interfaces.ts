@@ -15,6 +15,7 @@ export interface IFileRepository {
     findByIds(ids: string[]): Promise<IFile[]>
     findByKey(key: string): Promise<IFile | null>
     findByKeys(keys: string[]): Promise<IFile[]>
+    update(file: IFile, update: {}): Promise<IFile>
 }
 
 export interface IFolderRepository {

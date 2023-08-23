@@ -78,6 +78,9 @@ export const mockFileRepository: IFileRepository = {
     findByIds: function (ids: string[]): Promise<IFile[]> {
         return Promise.resolve([sampleFile])
     },
+    update: function (file: IFile, update: {}): Promise<IFile> {
+        return Promise.resolve(sampleFile)
+    },
 }
 
 export const mockFolderRepository: IFolderRepository = {

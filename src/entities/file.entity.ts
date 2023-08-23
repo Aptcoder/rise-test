@@ -37,6 +37,12 @@ export class File extends BaseEntity {
     })
     location: string
 
+    @Column({
+        nullable: false,
+        default: true,
+    })
+    safe: boolean
+
     @Column({ type: "timestamptz", nullable: true })
     deletedAt: Date
 

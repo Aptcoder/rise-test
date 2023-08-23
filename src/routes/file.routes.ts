@@ -21,6 +21,7 @@ export const setupFileRoutes = (container: IContainer) => {
 
     fileRouter.get(
         "/:key/download",
+        authService.auth(),
         validator({
             param: KeyDTO,
         }),
@@ -29,6 +30,7 @@ export const setupFileRoutes = (container: IContainer) => {
 
     fileRouter.post(
         "/",
+        authService.auth(),
         storageService.upload.single("file"),
         fileController.createFile.bind(fileController)
     )

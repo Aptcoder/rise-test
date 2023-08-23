@@ -15,6 +15,7 @@ export interface IFileService {
     createFile(input: CreateFileInput): Promise<IFile>
     getFiles(): Promise<IFile[]>
     getFile(key: string): Promise<IFile>
+    markUnsafe(fileId: string): Promise<IFile>
 }
 
 export interface IFolderService {
