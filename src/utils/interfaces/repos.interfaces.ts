@@ -10,12 +10,13 @@ export interface IUserRepository {
 
 export interface IFileRepository {
     create(fileInput: CreateFileInput): Promise<IFile>
-    findAll(): Promise<IFile[]>
+    findAll(where?: {}): Promise<IFile[]>
     findById(id: string): Promise<IFile | null>
     findByIds(ids: string[]): Promise<IFile[]>
     findByKey(key: string): Promise<IFile | null>
     findByKeys(keys: string[]): Promise<IFile[]>
     update(file: IFile, update: {}): Promise<IFile>
+    updateMany(condition: Partial<IFile>, update: Partial<IFile>): Promise<{}>
 }
 
 export interface IFolderRepository {

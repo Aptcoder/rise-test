@@ -1,11 +1,6 @@
-import { NextFunction, Request, Response } from "express"
+import { Request, Response } from "express"
 import { Inject, Service } from "typedi"
-import { CreateUserDTO } from "../utils/dtos/user.dtos"
-import {
-    IFileService,
-    IUserService,
-} from "../utils/interfaces/services.interfaces"
-import { UserRole } from "../entities/user.entity"
+import { IFileService } from "../utils/interfaces/services.interfaces"
 import Helper from "../utils/helper"
 import { BadRequestError } from "../utils/errors"
 import { StorageService } from "../services/providers/storage/stoarage.service"

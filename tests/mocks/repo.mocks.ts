@@ -81,6 +81,9 @@ export const mockFileRepository: IFileRepository = {
     update: function (file: IFile, update: {}): Promise<IFile> {
         return Promise.resolve(sampleFile)
     },
+    updateMany: function (condition: {}, update: {}): Promise<{}> {
+        throw new Error("Function not implemented.")
+    },
 }
 
 export const mockFolderRepository: IFolderRepository = {

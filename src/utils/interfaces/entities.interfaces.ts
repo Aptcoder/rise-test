@@ -22,6 +22,8 @@ export interface IFile {
     deletedAt: Date
     key: string
     createdAt: Date
+
+    safe: Boolean
 }
 
 export interface IFolder {
