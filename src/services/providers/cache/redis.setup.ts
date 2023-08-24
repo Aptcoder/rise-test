@@ -3,12 +3,8 @@ import { RedisStore, redisStore } from "cache-manager-redis-yet"
 import config from "config"
 
 export const init = async () => {
-    const redisHost = config.get<{
-        host: string
-    }>("redis").host
-
     var redisConfig = {
-        url: `redis://${redisHost}:6379`,
+        url: config.get<string>("redis_url"),
         ttl: 60 * 60 * 60,
     }
 

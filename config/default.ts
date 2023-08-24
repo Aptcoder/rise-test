@@ -5,6 +5,8 @@ dotenv.config()
 export default {
     port: process.env.PORT || 3000,
     jwtSecret: process.env.JWT_SECRET,
+    database_url: process.env.DATABASE_URL,
+    redis_url: process.env.REDIS_URL,
     database: {
         host: process.env.DB_HOST,
         port: 5432,

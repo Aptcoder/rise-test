@@ -7,7 +7,7 @@ const entityPath = path.resolve(__dirname, "..", "entities")
 export default (): Promise<void | Connection> =>
     createConnection({
         type: "postgres",
-        ...config.get<object>("database"),
+        url: config.get<string>("database_url"),
         entities: [`${entityPath}/*.{js,ts}`],
         logging: false,
         synchronize: false,
