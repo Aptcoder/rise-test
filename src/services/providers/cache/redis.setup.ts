@@ -1,8 +1,9 @@
 import { caching } from "cache-manager"
 import { RedisStore, redisStore } from "cache-manager-redis-yet"
 import config from "config"
+import { ILogger } from "src/utils/interfaces/services.interfaces"
 
-export const init = async () => {
+export const init = async (logger: ILogger) => {
     var redisConfig = {
         url: config.get<string>("redis_url"),
         ttl: 60 * 60 * 60,
@@ -16,14 +17,14 @@ export const init = async () => {
 
         await redisCache.set("let see", "hi")
 
-        console.log("Redis connection done!")
+        logger.info("Redis connection done!")
         redisClient.on("error", (error: any) => {
-            console.log("Redis Error", error)
+            logger.error(`Redis Error: ${error}`)
         })
 
         return redisCache
     } catch (err) {
-        console.log("Could not connect!")
+        logger.error(`Could not connect! ${err}`)
         process.exit(1)
     }
 }

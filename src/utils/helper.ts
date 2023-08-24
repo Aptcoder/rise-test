@@ -15,7 +15,7 @@ export default class Helper {
     }
 
     static handleError(res: Response, error: any) {
-        console.log("err", error)
+        console.log("error", error)
         if (error.status) {
             return res.status(error.status).send({
                 status: "failed",

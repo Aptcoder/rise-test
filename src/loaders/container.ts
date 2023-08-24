@@ -11,10 +11,12 @@ import FolderRepository from "../repositories/folder.repository"
 import FolderService from "../services/folder.service"
 import { Auth as AuthService } from "../middlewares/auth"
 import LoggerService from "../utils/logger"
+import { ILogger } from "src/utils/interfaces/services.interfaces"
 
 export const initContainer = async () => {
     Container.set({ id: "logger", type: LoggerService })
-    const redisCache: RedisCache = await init()
+    const logger = Container.get<ILogger>("logger")
+    const redisCache: RedisCache = await init(logger)
 
     // external services
     const cacheService = new CacheService(redisCache)

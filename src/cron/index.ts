@@ -2,6 +2,14 @@ import cron from "node-cron"
 import { StorageService } from "../services/providers/storage/storage.service"
 import { Inject, Service } from "typedi"
 import { IFileRepository } from "../utils/interfaces/repos.interfaces"
+import { IContainer } from "../utils/types"
+
+export const setupCron = async (container: IContainer) => {
+    const cronScheduler = container.get(CronScheduler)
+
+    const cron = await cronScheduler.schedule()
+    cron.start()
+}
 
 @Service()
 export class CronScheduler {

@@ -1,10 +1,11 @@
 import { createConnection, Connection } from "typeorm"
 import config from "config"
 import path from "path"
+import { ILogger } from "src/utils/interfaces/services.interfaces"
 
 const entityPath = path.resolve(__dirname, "..", "entities")
 
-export default (): Promise<void | Connection> =>
+export default (logger: ILogger): Promise<void | Connection> =>
     createConnection({
         type: "postgres",
         url: config.get<string>("database_url"),
@@ -13,9 +14,9 @@ export default (): Promise<void | Connection> =>
         synchronize: false,
     })
         .then(() => {
-            console.log("Sucessfully connected to db")
+            logger.info("Sucessfully connected to db")
         })
         .catch((err: Error) => {
-            console.log("Could not connect to db", err)
+            logger.error(`Could not connect to db: ${err}`)
             process.exit(1)
         })
