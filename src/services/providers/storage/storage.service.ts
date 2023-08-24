@@ -11,6 +11,8 @@ import multer from "multer"
 import multerS3 from "multer-s3"
 import { BadRequestError } from "../../../utils/errors"
 import { Stream } from "stream"
+import { Inject, Service } from "typedi"
+import BaseService from "../../base.service"
 
 const validFileFormats = new Set([
     "image/jpeg",
@@ -52,7 +54,8 @@ const s3 = new S3Client({
     },
 })
 
-export class StorageService {
+@Service()
+export class StorageService extends BaseService {
     public upload = multer({
         fileFilter: fileFilterFunction,
         limits: {
@@ -83,7 +86,7 @@ export class StorageService {
 
         const command = new GetObjectCommand(input)
         const response = await s3.send(command)
-
+        this.logger.info(`Fetched object with key ${key}`)
         return response.Body as Stream
     }
 

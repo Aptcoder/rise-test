@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { IContainer } from "../utils/types"
-import { StorageService } from "../services/providers/storage/stoarage.service"
+import { StorageService } from "../services/providers/storage/storage.service"
 import FileController from "../controllers/file.controller"
 import validator from "../middlewares/validator"
 import { FileIdDTO, KeyDTO } from "../utils/dtos/file.dtos"

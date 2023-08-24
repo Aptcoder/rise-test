@@ -1,5 +1,5 @@
 import cron from "node-cron"
-import { StorageService } from "../services/providers/storage/stoarage.service"
+import { StorageService } from "../services/providers/storage/storage.service"
 import { Inject, Service } from "typedi"
 import { IFileRepository } from "../utils/interfaces/repos.interfaces"
 
@@ -13,7 +13,7 @@ export class CronScheduler {
         this.fileRepository = fileRepository
     }
     async schedule() {
-        return cron.schedule("*/2 * * * *", async () => {
+        return cron.schedule("*/30 * * * *", async () => {
             console.log("starting cron job")
             await this.deleteUnsafeFiles()
             console.log("Ran cron job")

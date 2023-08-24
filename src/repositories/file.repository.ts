@@ -9,7 +9,6 @@ export default class FileRepository implements IFileRepository {
         return File.findOne({
             where: {
                 id,
-                deletedAt: IsNull(),
             },
         })
     }
@@ -17,7 +16,6 @@ export default class FileRepository implements IFileRepository {
         const files = await File.find({
             where: {
                 id: In(ids),
-                deletedAt: IsNull(),
             },
         })
         return files
@@ -36,7 +34,6 @@ export default class FileRepository implements IFileRepository {
         return File.find({
             where: {
                 ...where,
-                deletedAt: IsNull(),
             },
         })
     }
@@ -45,7 +42,6 @@ export default class FileRepository implements IFileRepository {
         const file = await File.findOne({
             where: {
                 key,
-                deletedAt: IsNull(),
             },
         })
         return file
@@ -55,7 +51,6 @@ export default class FileRepository implements IFileRepository {
         const files = await File.find({
             where: {
                 key: In(keys),
-                deletedAt: IsNull(),
             },
         })
         return files

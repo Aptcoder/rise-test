@@ -33,6 +33,7 @@ export const sampleFile: IFile = {
     deletedAt: new Date(),
     createdAt: new Date(),
     mimeType: "pdf",
+    safe: true,
 }
 
 export const sampleFolder: IFolder = {
@@ -40,6 +41,7 @@ export const sampleFolder: IFolder = {
     name: "sample",
     files: [sampleFile],
 }
+
 export const mockUserRepository: IUserRepository = {
     create: function (createUserDto: CreateUserDTO): Promise<IUser> {
         return Promise.resolve({

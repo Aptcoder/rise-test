@@ -4,14 +4,16 @@ import UserService from "../services/user.service"
 import Container from "typedi"
 import { RedisCache } from "cache-manager-redis-yet"
 import { CacheService } from "../services/providers/cache/cache.service"
-import { StorageService } from "../services/providers/storage/stoarage.service"
+import { StorageService } from "../services/providers/storage/storage.service"
 import FileService from "../services/file.service"
 import FileRepository from "../repositories/file.repository"
 import FolderRepository from "../repositories/folder.repository"
 import FolderService from "../services/folder.service"
 import { Auth as AuthService } from "../middlewares/auth"
+import LoggerService from "../utils/logger"
 
 export const initContainer = async () => {
+    Container.set({ id: "logger", type: LoggerService })
     const redisCache: RedisCache = await init()
 
     // external services

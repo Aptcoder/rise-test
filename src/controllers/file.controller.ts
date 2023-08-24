@@ -3,7 +3,7 @@ import { Inject, Service } from "typedi"
 import { IFileService } from "../utils/interfaces/services.interfaces"
 import Helper from "../utils/helper"
 import { BadRequestError } from "../utils/errors"
-import { StorageService } from "../services/providers/storage/stoarage.service"
+import { StorageService } from "../services/providers/storage/storage.service"
 
 const videoAndAudioTypes = new Set([
     "audio/mpeg",

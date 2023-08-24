@@ -3,7 +3,6 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    BeforeInsert,
     DeleteDateColumn,
 } from "typeorm"
 
@@ -44,8 +43,7 @@ export class File extends BaseEntity {
     })
     safe: boolean
 
-    @DeleteDateColumn()
-    @Column({ type: "timestamptz", nullable: true })
+    @DeleteDateColumn({ type: "timestamptz", nullable: true })
     deletedAt: Date
 
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })

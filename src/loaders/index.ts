@@ -10,6 +10,8 @@ async function init({ expressApp }: { expressApp: Application }) {
     const { loadApp } = await import("./app")
     await loadApp({ app: expressApp, Container: Container })
     await setupCron(Container)
+
+    return Container
 }
 
 export { init }

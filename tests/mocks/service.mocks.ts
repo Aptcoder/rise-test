@@ -1,15 +1,31 @@
 import {
     IFileService,
     IFolderService,
+    ILogger,
     IUserService,
 } from "../../src/utils/interfaces/services.interfaces"
 import { sampleFile, sampleFolder, sampleUser } from "./repo.mocks"
 import { CreateFileInput } from "../../src/services/file.service"
 import { IFile, IFolder } from "../../src/utils/interfaces/entities.interfaces"
-import { StorageService } from "../../src/services/providers/storage/stoarage.service"
+import { StorageService } from "../../src/services/providers/storage/storage.service"
 import { createReadStream } from "fs"
 import { Multer } from "multer"
-import { CreateFolderDTO } from "src/utils/dtos/file.dtos"
+import { CreateFolderDTO } from "../../src/utils/dtos/file.dtos"
+
+export const mockLogger: ILogger = {
+    info: function (message: string) {
+        console.log(message)
+        return mockLogger
+    },
+    warn: function (message: string): ILogger {
+        console.log(message)
+        return mockLogger
+    },
+    error: function (message: string, meta: {}): ILogger {
+        console.log(message)
+        return mockLogger
+    },
+}
 
 export const mockUserService: IUserService = {
     createUser() {
@@ -67,4 +83,5 @@ export const mockStorageService: StorageService = {
     getObjectSize: function (key: string): Promise<number> {
         return Promise.resolve(5400)
     },
+    logger: mockLogger,
 }

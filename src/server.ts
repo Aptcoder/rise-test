@@ -2,15 +2,17 @@ import "reflect-metadata"
 import config from "config"
 import express from "express"
 import * as loader from "./loaders"
+import LoggerService from "./utils/logger"
 
 const PORT: string = config.get<string>("port")
 
 async function startServer() {
     const app = express()
 
-    await loader.init({ expressApp: app })
+    const Container = await loader.init({ expressApp: app })
+    const logger = Container.get(LoggerService)
     app.listen(PORT, (): void => {
-        console.log("Server is running at port", PORT)
+        logger.info(`Server is running at port: ${PORT}`)
     })
 }
 

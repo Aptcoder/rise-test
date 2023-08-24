@@ -25,3 +25,9 @@ export interface IFolderService {
     removeFile(folderId: string, fileId: string): Promise<IFolder>
     // getFolder(key: string): Promise<IFile>
 }
+
+export interface ILogger {
+    info(msg: string): ILogger
+    warn(msg: string): ILogger
+    error(msg: string, meta: {}): ILogger
+}
