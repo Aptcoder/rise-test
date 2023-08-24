@@ -1,10 +1,8 @@
 import Container from "typedi"
-import UserController from "../../../src/controllers/user.controller"
-import { mockReq, mockRes } from "../../mocks/utils.mock"
+import { mockNext, mockReq, mockRes } from "../../mocks/utils.mock"
 import { mockFolderService } from "../../../tests/mocks/service.mocks"
 import { Request } from "express"
 import FolderController from "../../../src/controllers/folder.controller"
-import { sampleFile } from "../../mocks/repo.mocks"
 
 describe("Folder controller", () => {
     Container.set({ id: "folder_service", value: mockFolderService })
@@ -16,7 +14,7 @@ describe("Folder controller", () => {
 
     test("Controller calls folder service to create file", async () => {
         const createSpy = jest.spyOn(mockFolderService, "createFolder")
-        await folderController.createFolder(mockReq, mockRes)
+        await folderController.createFolder(mockReq, mockRes, mockNext)
         expect(createSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -28,7 +26,7 @@ describe("Folder controller", () => {
     test("Controller calls get folders", async () => {
         const getSpy = jest.spyOn(mockFolderService, "getFolders")
 
-        await folderController.getFolders(mockReq, mockRes)
+        await folderController.getFolders(mockReq, mockRes, mockNext)
         expect(getSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -50,7 +48,7 @@ describe("Folder controller", () => {
             },
         } as unknown as Request
 
-        await folderController.addFilesToFolder(req, mockRes)
+        await folderController.addFilesToFolder(req, mockRes, mockNext)
         expect(addSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -70,7 +68,7 @@ describe("Folder controller", () => {
             },
         } as unknown as Request
 
-        await folderController.removeFileFromFolder(req, mockRes)
+        await folderController.removeFileFromFolder(req, mockRes, mockNext)
         expect(removeSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({

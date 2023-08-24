@@ -1,6 +1,6 @@
 import Container from "typedi"
 import UserController from "../../../src/controllers/user.controller"
-import { mockReq, mockRes } from "../../mocks/utils.mock"
+import { mockNext, mockReq, mockRes } from "../../mocks/utils.mock"
 import {
     mockFileService,
     mockStorageService,
@@ -36,7 +36,7 @@ describe("File controller", () => {
             },
         } as unknown as Request
 
-        await fileController.createFile(req, mockRes)
+        await fileController.createFile(req, mockRes, mockNext)
         expect(createSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -48,7 +48,7 @@ describe("File controller", () => {
     test("Controller calls get files", async () => {
         const getSpy = jest.spyOn(mockFileService, "getFiles")
 
-        await fileController.getFiles(mockReq, mockRes)
+        await fileController.getFiles(mockReq, mockRes, mockNext)
         expect(getSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -67,7 +67,7 @@ describe("File controller", () => {
             },
         } as unknown as Request
 
-        await fileController.markFileUnSafe(req, mockRes)
+        await fileController.markFileUnSafe(req, mockRes, mockNext)
         expect(markSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -91,7 +91,7 @@ describe("File controller", () => {
             },
         } as unknown as Request
 
-        await fileController.downloadFile(req, res)
+        await fileController.downloadFile(req, res, mockNext)
         expect(getSpy).toHaveBeenCalledTimes(1)
 
         res.on("close", () => {

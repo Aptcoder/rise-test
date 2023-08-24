@@ -1,6 +1,6 @@
 import Container from "typedi"
 import UserController from "../../../src/controllers/user.controller"
-import { mockReq, mockRes } from "../../mocks/utils.mock"
+import { mockNext, mockReq, mockRes } from "../../mocks/utils.mock"
 import { mockUserService } from "../../../tests/mocks/service.mocks"
 import { Request } from "express"
 
@@ -15,7 +15,7 @@ describe("User controller", () => {
     test("Controller calls user service to create user", async () => {
         const createSpy = jest.spyOn(mockUserService, "createUser")
 
-        await userController.createUser(mockReq, mockRes)
+        await userController.createUser(mockReq, mockRes, mockNext)
         expect(createSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({

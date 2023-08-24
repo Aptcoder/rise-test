@@ -12,27 +12,31 @@ export default class FileController {
         this.folderService = folderService
     }
 
-    public async createFolder(req: Request, res: Response) {
+    public async createFolder(req: Request, res: Response, next: NextFunction) {
         try {
             const folder = await this.folderService.createFolder(req.body)
             return Helper.formatResponse(res, "Folder created", {
                 folder,
             })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async getFolders(req: Request, res: Response) {
+    public async getFolders(req: Request, res: Response, next: NextFunction) {
         try {
             const folders = await this.folderService.getFolders()
             return Helper.formatResponse(res, "Folders", { folders })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async addFilesToFolder(req: Request, res: Response) {
+    public async addFilesToFolder(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
         try {
             const { folderId } = req.params
             const { files } = req.body
@@ -42,11 +46,15 @@ export default class FileController {
                 folder,
             })
         } catch (err) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async removeFileFromFolder(req: Request, res: Response) {
+    public async removeFileFromFolder(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
         try {
             const { folderId, fileId } = req.params
 
@@ -55,7 +63,7 @@ export default class FileController {
                 folder,
             })
         } catch (err) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 }

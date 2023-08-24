@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { Inject, Service } from "typedi"
 import { IFileService } from "../utils/interfaces/services.interfaces"
 import Helper from "../utils/helper"
@@ -30,7 +30,7 @@ export default class FileController {
         this.storageService = storageService
     }
 
-    public async createFile(req: Request, res: Response) {
+    public async createFile(req: Request, res: Response, next: NextFunction) {
         try {
             let { file } = req
             if (!file) {
@@ -43,20 +43,20 @@ export default class FileController {
                 file: createdFile,
             })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async getFiles(req: Request, res: Response) {
+    public async getFiles(req: Request, res: Response, next: NextFunction) {
         try {
             const files = await this.fileService.getFiles()
             return Helper.formatResponse(res, "Files", { files })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async downloadFile(req: Request, res: Response) {
+    public async downloadFile(req: Request, res: Response, next: NextFunction) {
         try {
             const { fileId } = req.params
             const file = await this.fileService.getFile(fileId)
@@ -64,11 +64,11 @@ export default class FileController {
             const stream = await this.storageService.getObject(file.key)
             stream.pipe(res)
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async getFileView(req: Request, res: Response) {
+    public async getFileView(req: Request, res: Response, next: NextFunction) {
         try {
             const { fileId } = req.params
             const file = await this.fileService.getFile(fileId)
@@ -81,11 +81,15 @@ export default class FileController {
                 file,
             })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async getFileStream(req: Request, res: Response) {
+    public async getFileStream(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
         try {
             const { fileId } = req.params
             const file = await this.fileService.getFile(fileId)
@@ -121,11 +125,15 @@ export default class FileController {
             )
             stream.pipe(res)
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async markFileUnSafe(req: Request, res: Response) {
+    public async markFileUnSafe(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
         try {
             const { fileId } = req.params
             const file = await this.fileService.markUnsafe(fileId)
@@ -134,7 +142,7 @@ export default class FileController {
                 file,
             })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 }

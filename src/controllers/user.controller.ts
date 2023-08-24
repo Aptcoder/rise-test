@@ -11,17 +11,21 @@ export default class UserController {
         this.userService = userService
     }
 
-    public async createUser(req: Request, res: Response) {
+    public async createUser(req: Request, res: Response, next: NextFunction) {
         const createUserDto: CreateUserDTO = req.body
         try {
             const user = await this.userService.createUser(createUserDto)
             return Helper.formatResponse(res, "User created", { user })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async createAdminUser(req: Request, res: Response) {
+    public async createAdminUser(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
         const createUserDto: CreateUserDTO = req.body
         try {
             const admin = await this.userService.createUser({
@@ -30,22 +34,23 @@ export default class UserController {
             })
             return Helper.formatResponse(res, "Created admin", { admin })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
-    public async getAllUsers(req: Request, res: Response) {
+    public async getAllUsers(req: Request, res: Response, next: NextFunction) {
         try {
             const users = await this.userService.getUsers()
             return Helper.formatResponse(res, "Users", { users })
         } catch (err: any) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 
     public async authUser(
         req: Request,
-        res: Response
+        res: Response,
+        next: NextFunction
     ): Promise<void | Response> {
         try {
             const { email, password } = req.body
@@ -58,7 +63,7 @@ export default class UserController {
                 user,
             })
         } catch (err) {
-            return Helper.handleError(res, err)
+            return next(err)
         }
     }
 }
