@@ -18,6 +18,12 @@ export const setupUserRoutes = (container: IContainer) => {
     )
 
     userRouter.post(
+        "/logout",
+        authService.auth(),
+        userController.logoutUser.bind(userController)
+    )
+
+    userRouter.post(
         "/",
         validator({
             body: CreateUserDTO,
