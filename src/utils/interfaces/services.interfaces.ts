@@ -9,6 +9,7 @@ export interface IUserService {
     auth(
         authUserDto: AuthUserDto
     ): Promise<{ accessToken: string; user: Omit<IUser, "password"> }>
+    logoutUser(userId: string): Promise<void>
 }
 
 export interface IFileService {

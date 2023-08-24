@@ -27,7 +27,7 @@ describe("User controller", () => {
     test("Controller calls get users", async () => {
         const getSpy = jest.spyOn(mockUserService, "getUsers")
 
-        await userController.getAllUsers(mockReq, mockRes)
+        await userController.getAllUsers(mockReq, mockRes, mockNext)
         expect(getSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -45,11 +45,29 @@ describe("User controller", () => {
                 password: "hey",
             },
         } as Request
-        await userController.authUser(req, mockRes)
+        await userController.authUser(req, mockRes, mockNext)
         expect(authSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
                 message: "User auth successful",
+            })
+        )
+    })
+
+    test("Controller logout should log user out", async () => {
+        const logSpy = jest.spyOn(mockUserService, "logoutUser")
+        const req = {
+            ...mockReq,
+            user: {
+                id: "random",
+            },
+        } as Request
+        await userController.logoutUser(req, mockRes, mockNext)
+        expect(logSpy).toHaveBeenCalledTimes(1)
+        expect(logSpy).toHaveBeenCalledWith("random")
+        expect(mockRes.send).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: "Logged user out",
             })
         )
     })

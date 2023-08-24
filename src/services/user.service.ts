@@ -39,6 +39,10 @@ export default class UserService implements IUserService {
         })
     }
 
+    async logoutUser(userId: string) {
+        await this.cacheService.delete(userId)
+    }
+
     public async auth(
         authUserDto: AuthUserDto
     ): Promise<{ accessToken: string; user: Omit<IUser, "password"> }> {
@@ -60,7 +64,7 @@ export default class UserService implements IUserService {
         const { accessToken } = await this.generateToken(user)
         const userWithoutPassword = _.omit(user, "password")
 
-        await this.cacheService.set(accessToken, user.id, {
+        await this.cacheService.set(user.id, accessToken, {
             ttl: 60 * 60 * 1000,
         })
 

@@ -47,6 +47,15 @@ export default class UserController {
         }
     }
 
+    public async logoutUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            await this.userService.logoutUser(req.user!.id)
+            return Helper.formatResponse(res, "Logged user out")
+        } catch (err: any) {
+            return next(err)
+        }
+    }
+
     public async authUser(
         req: Request,
         res: Response,

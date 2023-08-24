@@ -42,6 +42,9 @@ export const mockUserService: IUserService = {
     getUsers() {
         return Promise.resolve([sampleUser])
     },
+    logoutUser: function (userId: string): Promise<void> {
+        return Promise.resolve()
+    },
 }
 
 export const mockFileService: IFileService = {

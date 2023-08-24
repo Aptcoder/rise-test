@@ -102,4 +102,12 @@ describe("User service", () => {
         expect(findSpy).toHaveBeenCalledTimes(1)
         expect(generateSpy).not.toHaveBeenCalled()
     })
+
+    test("Should log user out", async () => {
+        const cacheSpy = jest.spyOn(cacheService, "delete")
+        await userService.logoutUser("randomId")
+
+        expect(cacheSpy).toHaveBeenCalledTimes(1)
+        expect(cacheSpy).toHaveBeenCalledWith("randomId")
+    })
 })

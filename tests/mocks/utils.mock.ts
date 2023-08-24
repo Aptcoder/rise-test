@@ -14,4 +14,9 @@ export const mockRes = {
     send: jest.fn(),
 } as unknown as Response
 
-export const mockNext = {} as NextFunction
+export const mockNext = (err?: any) => {
+    if (err) {
+        console.log("Error from MockNext", err)
+        throw new Error("Error from mockNext")
+    }
+}
