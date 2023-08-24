@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export default {
-    port: 3000,
+    port: process.env.PORT || 3000,
     jwtSecret: process.env.JWT_SECRET,
     database: {
         host: process.env.DB_HOST,
