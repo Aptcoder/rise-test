@@ -7,6 +7,7 @@ import {
 } from "../common/interfaces/repos.interfaces"
 import { IContainer } from "../common/types"
 import { In } from "typeorm"
+import { ILogger } from "src/common/interfaces/services.interfaces"
 
 export const setupCron = async (container: IContainer) => {
     const cronScheduler = container.get(CronScheduler)
@@ -20,16 +21,17 @@ export class CronScheduler {
     constructor(
         @Inject("file_repository") public fileRepository: IFileRepository,
         @Inject("review_repository") public reviewRepository: IReviewRepository,
-        @Inject("storage_service") public storageService: StorageService
+        @Inject("storage_service") public storageService: StorageService,
+        @Inject("logger") public logger: ILogger
     ) {
         this.storageService = storageService
         this.fileRepository = fileRepository
     }
     async schedule() {
-        return cron.schedule("*/1 * * * *", async () => {
-            console.log("starting cron job")
+        return cron.schedule("*/30 * * * *", async () => {
+            this.logger.info("starting cron job!")
             await this.deleteUnsafeFiles()
-            console.log("Ran cron job")
+            this.logger.info("ran cron job!")
         })
     }
 
