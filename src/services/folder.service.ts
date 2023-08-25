@@ -1,12 +1,12 @@
 import { Service, Inject } from "typedi"
-import { IFile, IFolder } from "../utils/interfaces/entities.interfaces"
+import { IFile, IFolder } from "../common/interfaces/entities.interfaces"
 import {
     IFileRepository,
     IFolderRepository,
-} from "../utils/interfaces/repos.interfaces"
-import { IFolderService } from "../utils/interfaces/services.interfaces"
-import { CreateFolderDTO } from "../utils/dtos/file.dtos"
-import { ConflictError, NotFoundError } from "../utils/errors"
+} from "../common/interfaces/repos.interfaces"
+import { IFolderService } from "../common/interfaces/services.interfaces"
+import { CreateFolderDTO } from "../common/dtos/file.dtos"
+import { ConflictError, NotFoundError } from "../common/errors"
 
 export interface CreateFileInput {
     originalname: string

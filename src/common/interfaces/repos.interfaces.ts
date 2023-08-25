@@ -1,6 +1,6 @@
 import { CreateFileInput } from "src/services/file.service"
 import { CreateUserDTO } from "../dtos/user.dtos"
-import { IFile, IFolder, IUser } from "./entities.interfaces"
+import { IFile, IFolder, IReview, IUser } from "./entities.interfaces"
 
 export interface IUserRepository {
     create(createUserDto: CreateUserDTO): Promise<IUser>
@@ -26,4 +26,14 @@ export interface IFolderRepository {
     create(name: string, files?: IFile[]): Promise<IFolder>
     addFiles(files: IFile[], folder: IFolder): Promise<IFolder>
     removeFile(fileId: string, folder: IFolder): Promise<IFolder>
+}
+
+export interface IReviewRepository {
+    findOne(where: Partial<IReview>): Promise<IReview | null>
+    findMany(where: Partial<IReview>): Promise<IReview[]>
+    create(input: {
+        comment: string
+        fileId: string
+        reviewerId: string
+    }): Promise<IReview>
 }

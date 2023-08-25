@@ -9,10 +9,10 @@ import config from "config"
 import { Request } from "express"
 import multer from "multer"
 import multerS3 from "multer-s3"
-import { BadRequestError } from "../../../utils/errors"
+import { BadRequestError } from "../../errors"
 import { Stream } from "stream"
 import { Inject, Service } from "typedi"
-import BaseService from "../../base.service"
+import BaseService from "../../../services/base.service"
 
 const validFileFormats = new Set([
     "image/jpeg",

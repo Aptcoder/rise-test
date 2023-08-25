@@ -1,8 +1,8 @@
 import { Router } from "express"
 import UserController from "../controllers/user.controller"
-import { IContainer } from "../utils/types"
+import { IContainer } from "../common/types"
 import validator from "../middlewares/validator"
-import { AuthUserDto, CreateUserDTO } from "../utils/dtos/user.dtos"
+import { AuthUserDto, CreateUserDTO } from "../common/dtos/user.dtos"
 import { Auth as AuthService } from "../middlewares/auth"
 
 export const setupUserRoutes = (container: IContainer) => {

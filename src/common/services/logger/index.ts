@@ -1,6 +1,6 @@
 import { Service } from "typedi"
 import winston from "winston"
-import { ILogger } from "../interfaces/services.interfaces"
+import { ILogger } from "../../interfaces/services.interfaces"
 
 @Service()
 export default class LoggerService implements ILogger {

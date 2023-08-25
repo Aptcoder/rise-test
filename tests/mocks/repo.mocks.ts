@@ -1,15 +1,17 @@
 import { faker } from "@faker-js/faker"
-import { CreateUserDTO } from "../../src/utils/dtos/user.dtos"
+import { CreateUserDTO } from "../../src/common/dtos/user.dtos"
 import {
     IFile,
     IFolder,
+    IReview,
     IUser,
-} from "../../src/utils/interfaces/entities.interfaces"
+} from "../../src/common/interfaces/entities.interfaces"
 import {
     IFileRepository,
     IFolderRepository,
+    IReviewRepository,
     IUserRepository,
-} from "../../src/utils/interfaces/repos.interfaces"
+} from "../../src/common/interfaces/repos.interfaces"
 import { UserRole } from "../../src/entities/user.entity"
 
 export const sampleUser: IUser = {
@@ -40,6 +42,17 @@ export const sampleFolder: IFolder = {
     id: faker.person.fullName(),
     name: "sample",
     files: [sampleFile],
+}
+
+export const sampleReview: IReview = {
+    id: faker.person.fullName(),
+    file: sampleFile,
+    fileId: sampleFile.id,
+    userId: sampleUser.id,
+    user: sampleUser,
+    safe: false,
+    deletedAt: new Date(),
+    createdAt: new Date(),
 }
 
 export const mockUserRepository: IUserRepository = {
@@ -113,5 +126,21 @@ export const mockFolderRepository: IFolderRepository = {
     },
     removeFile: function (fileId: string, folder: IFolder): Promise<IFolder> {
         return Promise.resolve(sampleFolder)
+    },
+}
+
+export const mockReviewRepository: IReviewRepository = {
+    findOne: function (where: {}): Promise<IReview> {
+        return Promise.resolve(sampleReview)
+    },
+    findMany: function (where: {}): Promise<IReview[]> {
+        return Promise.resolve([sampleReview])
+    },
+    create: function (input: {
+        comment: string
+        fileId: string
+        reviewerId: string
+    }): Promise<IReview> {
+        return Promise.resolve(sampleReview)
     },
 }

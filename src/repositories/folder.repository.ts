@@ -1,5 +1,5 @@
-import { IFile, IFolder, IUser } from "../utils/interfaces/entities.interfaces"
-import { IFolderRepository } from "../utils/interfaces/repos.interfaces"
+import { IFile, IFolder, IUser } from "../common/interfaces/entities.interfaces"
+import { IFolderRepository } from "../common/interfaces/repos.interfaces"
 import { File } from "../entities/file.entity"
 import { Folder } from "../entities/folder.entity"
 

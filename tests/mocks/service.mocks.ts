@@ -3,14 +3,14 @@ import {
     IFolderService,
     ILogger,
     IUserService,
-} from "../../src/utils/interfaces/services.interfaces"
+} from "../../src/common/interfaces/services.interfaces"
 import { sampleFile, sampleFolder, sampleUser } from "./repo.mocks"
 import { CreateFileInput } from "../../src/services/file.service"
-import { IFile, IFolder } from "../../src/utils/interfaces/entities.interfaces"
-import { StorageService } from "../../src/services/providers/storage/storage.service"
+import { IFile, IFolder } from "../../src/common/interfaces/entities.interfaces"
+import { StorageService } from "../../src/common/services/storage/storage.service"
 import { createReadStream } from "fs"
 import { Multer } from "multer"
-import { CreateFolderDTO } from "../../src/utils/dtos/file.dtos"
+import { CreateFolderDTO } from "../../src/common/dtos/file.dtos"
 
 export const mockLogger: ILogger = {
     info: function (message: string) {

@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express"
 import { Inject, Service } from "typedi"
-import { IFileService } from "../utils/interfaces/services.interfaces"
-import Helper from "../utils/helper"
-import { BadRequestError } from "../utils/errors"
-import { StorageService } from "../services/providers/storage/storage.service"
+import { IFileService } from "../common/interfaces/services.interfaces"
+import Helper from "../common/helper"
+import { BadRequestError } from "../common/errors"
+import { StorageService } from "../common/services/storage/storage.service"
 
 const videoAndAudioTypes = new Set([
     "audio/mpeg",
@@ -136,7 +136,8 @@ export default class FileController {
     ) {
         try {
             const { fileId } = req.params
-            const file = await this.fileService.markUnsafe(fileId)
+            const { user } = req
+            const file = await this.fileService.markUnsafe(fileId, user!.id)
 
             return Helper.formatResponse(res, "File marked as unsafe", {
                 file,

@@ -1,12 +1,12 @@
 import { Router } from "express"
-import { IContainer } from "../utils/types"
+import { IContainer } from "../common/types"
 import FolderController from "../controllers/folder.controller"
 import {
     AddFileToFolderBodyDTO,
     CreateFolderDTO,
     FolderParamDTO,
     RemoveFileParam,
-} from "../utils/dtos/file.dtos"
+} from "../common/dtos/file.dtos"
 import validator from "../middlewares/validator"
 
 export const setupFolderRoutes = (container: IContainer) => {

@@ -1,10 +1,10 @@
 import Container from "typedi"
 import { mockUserRepository } from "../../mocks/repo.mocks"
-import { IUserService } from "../../../src/utils/interfaces/services.interfaces"
+import { IUserService } from "../../../src/common/interfaces/services.interfaces"
 import UserService from "../../../src/services/user.service"
-import { APIError, ConflictError } from "../../../src/utils/errors"
+import { APIError, ConflictError } from "../../../src/common/errors"
 import { caching } from "cache-manager"
-import { CacheService } from "../../../src/services/providers/cache/cache.service"
+import { CacheService } from "../../../src/common/services/cache/cache.service"
 
 describe("User service", () => {
     let userService: UserService

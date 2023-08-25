@@ -1,14 +1,14 @@
 import { Service, Inject } from "typedi"
 import * as bcrypt from "bcrypt"
-import { IUser } from "../utils/interfaces/entities.interfaces"
-import { IUserRepository } from "../utils/interfaces/repos.interfaces"
-import { APIError, ConflictError, NotFoundError } from "../utils/errors"
-import { AuthUserDto, CreateUserDTO } from "../utils/dtos/user.dtos"
-import { IUserService } from "src/utils/interfaces/services.interfaces"
+import { IUser } from "../common/interfaces/entities.interfaces"
+import { IUserRepository } from "../common/interfaces/repos.interfaces"
+import { APIError, ConflictError, NotFoundError } from "../common/errors"
+import { AuthUserDto, CreateUserDTO } from "../common/dtos/user.dtos"
+import { IUserService } from "src/common/interfaces/services.interfaces"
 import jwt from "jsonwebtoken"
 import config from "config"
 import _ from "lodash"
-import { CacheService } from "./providers/cache/cache.service"
+import { CacheService } from "../common/services/cache/cache.service"
 
 @Service("user_service")
 export default class UserService implements IUserService {

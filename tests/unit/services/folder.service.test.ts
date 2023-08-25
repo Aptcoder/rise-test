@@ -5,7 +5,7 @@ import {
     sampleFile,
 } from "../../mocks/repo.mocks"
 import FolderService from "../../../src/services/folder.service"
-import { NotFoundError } from "../../../src/utils/errors"
+import { NotFoundError } from "../../../src/common/errors"
 
 describe("Folder service", () => {
     let folderService: FolderService

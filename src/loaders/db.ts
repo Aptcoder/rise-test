@@ -1,7 +1,7 @@
 import { createConnection, Connection } from "typeorm"
 import config from "config"
 import path from "path"
-import { ILogger } from "src/utils/interfaces/services.interfaces"
+import { ILogger } from "src/common/interfaces/services.interfaces"
 
 const entityPath = path.resolve(__dirname, "..", "entities")
 

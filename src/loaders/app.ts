@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import express, { Application, NextFunction, Response, Request } from "express"
-import { IContainer } from "../utils/types"
+import { IContainer } from "../common/types"
 import { setupRoutes } from "../routes/api.routes"
 import { create, engine } from "express-handlebars"
-import { APIError } from "../utils/errors"
-import { ILogger } from "../utils/interfaces/services.interfaces"
+import { APIError } from "../common/errors"
+import { ILogger } from "../common/interfaces/services.interfaces"
 
 const loadApp = ({
     app,

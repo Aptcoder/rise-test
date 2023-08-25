@@ -1,19 +1,18 @@
 import { Service, Inject } from "typedi"
 import * as bcrypt from "bcrypt"
-import { IFile, IUser } from "../utils/interfaces/entities.interfaces"
-import { IFileRepository } from "../utils/interfaces/repos.interfaces"
+import { IFile, IUser } from "../common/interfaces/entities.interfaces"
+import {
+    IFileRepository,
+    IReviewRepository,
+} from "../common/interfaces/repos.interfaces"
 import {
     APIError,
     BadRequestError,
     ConflictError,
     NotFoundError,
-} from "../utils/errors"
-import { AuthUserDto, CreateUserDTO } from "../utils/dtos/user.dtos"
-import { IFileService } from "../utils/interfaces/services.interfaces"
-import jwt from "jsonwebtoken"
-import config from "config"
+} from "../common/errors"
+import { IFileService } from "../common/interfaces/services.interfaces"
 import _ from "lodash"
-import { CacheService } from "./providers/cache/cache.service"
 
 export interface CreateFileInput {
     originalname: string
@@ -37,7 +36,8 @@ const videoAndImageTypes = new Set([
 @Service("file_service")
 export default class FileService implements IFileService {
     constructor(
-        @Inject("file_repository") public fileRepository: IFileRepository
+        @Inject("file_repository") public fileRepository: IFileRepository,
+        @Inject("review_repository") public reviewRepository: IReviewRepository
     ) {
         this.fileRepository = fileRepository
     }
@@ -58,7 +58,7 @@ export default class FileService implements IFileService {
         return this.fileRepository.create(input)
     }
 
-    async markUnsafe(fileId: string) {
+    async markUnsafe(fileId: string, reviewerId: string) {
         let file = await this.fileRepository.findById(fileId)
         if (!file) {
             throw new NotFoundError("File not found")
@@ -70,8 +70,21 @@ export default class FileService implements IFileService {
             )
         }
 
-        file = await this.fileRepository.update(file, {
-            safe: false,
+        const review = await this.reviewRepository.findOne({
+            fileId: file.id,
+            userId: reviewerId,
+        })
+
+        if (review) {
+            throw new ConflictError(
+                "File has already been reviewed by this admin"
+            )
+        }
+
+        await this.reviewRepository.create({
+            comment: "random",
+            fileId: file.id,
+            reviewerId: reviewerId,
         })
 
         return file

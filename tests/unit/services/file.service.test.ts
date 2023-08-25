@@ -1,13 +1,18 @@
 import Container from "typedi"
-import { mockFileRepository, sampleFile } from "../../mocks/repo.mocks"
+import {
+    mockFileRepository,
+    sampleFile,
+    mockReviewRepository,
+} from "../../mocks/repo.mocks"
 import FileService from "../../../src/services/file.service"
-import { BadRequestError } from "../../../src/utils/errors"
+import { BadRequestError, ConflictError } from "../../../src/common/errors"
 
 describe("File service", () => {
     let fileService: FileService
 
     beforeEach(async () => {
         Container.set({ id: "file_repository", value: mockFileRepository })
+        Container.set({ id: "review_repository", value: mockReviewRepository })
         Container.set({ id: "file_service", type: FileService })
 
         fileService = Container.get("file_service")
@@ -38,7 +43,7 @@ describe("File service", () => {
         expect(findSpy).toHaveBeenCalledWith("key")
     })
 
-    test("Service should mark file unsafe", async () => {
+    test("Service should add admin review", async () => {
         const file = {
             ...sampleFile,
             mimeType: "image/jpeg",
@@ -46,13 +51,22 @@ describe("File service", () => {
         const findSpy = jest
             .spyOn(mockFileRepository, "findById")
             .mockResolvedValue(file)
-        const updateSpy = jest.spyOn(mockFileRepository, "update")
-        await fileService.markUnsafe("2")
+
+        const findReviewSpy = jest
+            .spyOn(mockReviewRepository, "findOne")
+            .mockResolvedValue(null)
+
+        const reviewSpy = jest.spyOn(mockReviewRepository, "create")
+
+        await fileService.markUnsafe("2", "4")
 
         expect(findSpy).toHaveBeenCalledTimes(1)
-        expect(updateSpy).toHaveBeenCalledTimes(1)
-        expect(updateSpy).toHaveBeenCalledWith(file, {
-            safe: false,
+        expect(findReviewSpy).toHaveBeenCalledTimes(1)
+        expect(reviewSpy).toHaveBeenCalledTimes(1)
+        expect(reviewSpy).toHaveBeenCalledWith({
+            fileId: file.id,
+            reviewerId: "4",
+            comment: expect.any(String),
         })
     })
 
@@ -61,10 +75,24 @@ describe("File service", () => {
         const updateSpy = jest.spyOn(mockFileRepository, "update")
 
         expect(async () => {
-            await fileService.markUnsafe("2")
+            await fileService.markUnsafe("2", "4")
         }).rejects.toBeInstanceOf(BadRequestError)
 
         expect(findSpy).toHaveBeenCalledTimes(1)
         expect(updateSpy).toHaveBeenCalledTimes(0)
+    })
+
+    test("Service should not create multiple review of file", async () => {
+        const file = {
+            ...sampleFile,
+            mimeType: "image/jpeg",
+        }
+        const findSpy = jest
+            .spyOn(mockFileRepository, "findById")
+            .mockResolvedValue(file)
+
+        expect(async () => {
+            await fileService.markUnsafe("2", "4")
+        }).rejects.toBeInstanceOf(ConflictError)
     })
 })

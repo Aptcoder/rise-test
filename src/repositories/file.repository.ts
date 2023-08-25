@@ -1,5 +1,5 @@
-import { IFile, IUser } from "../utils/interfaces/entities.interfaces"
-import { IFileRepository } from "../utils/interfaces/repos.interfaces"
+import { IFile, IUser } from "../common/interfaces/entities.interfaces"
+import { IFileRepository } from "../common/interfaces/repos.interfaces"
 import { File } from "../entities/file.entity"
 import { CreateFileInput } from "../services/file.service"
 import { In, IsNull, Not } from "typeorm"

@@ -31,3 +31,15 @@ export interface IFolder {
     name: string
     files: IFile[]
 }
+
+export interface IReview {
+    id: string
+    file: IFile
+    fileId: string
+    userId: string
+    user: IUser
+    comment?: string
+    safe: boolean
+    deletedAt: Date
+    createdAt: Date
+}

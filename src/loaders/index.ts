@@ -3,7 +3,7 @@ import { Application } from "express"
 import { initContainer } from "./container"
 import initDb from "./db"
 import { setupCron } from "../cron"
-import { ILogger } from "src/utils/interfaces/services.interfaces"
+import { ILogger } from "src/common/interfaces/services.interfaces"
 
 async function init({ expressApp }: { expressApp: Application }) {
     const Container = await initContainer()

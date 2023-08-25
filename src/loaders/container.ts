@@ -1,17 +1,17 @@
-import { init } from "../services/providers/cache/redis.setup"
+import { init } from "../common/services/cache/redis.setup"
 import UserRepository from "../repositories/user.repository"
 import UserService from "../services/user.service"
 import Container from "typedi"
 import { RedisCache } from "cache-manager-redis-yet"
-import { CacheService } from "../services/providers/cache/cache.service"
-import { StorageService } from "../services/providers/storage/storage.service"
+import { CacheService } from "../common/services/cache/cache.service"
+import { StorageService } from "../common/services/storage/storage.service"
 import FileService from "../services/file.service"
 import FileRepository from "../repositories/file.repository"
 import FolderRepository from "../repositories/folder.repository"
 import FolderService from "../services/folder.service"
 import { Auth as AuthService } from "../middlewares/auth"
-import LoggerService from "../utils/logger"
-import { ILogger } from "src/utils/interfaces/services.interfaces"
+import LoggerService from "../common/services/logger"
+import { ILogger } from "src/common/interfaces/services.interfaces"
 
 export const initContainer = async () => {
     Container.set({ id: "logger", type: LoggerService })

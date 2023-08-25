@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express"
 import { Inject, Service } from "typedi"
-import { CreateUserDTO } from "../utils/dtos/user.dtos"
-import { IUserService } from "../utils/interfaces/services.interfaces"
+import { CreateUserDTO } from "../common/dtos/user.dtos"
+import { IUserService } from "../common/interfaces/services.interfaces"
 import { UserRole } from "../entities/user.entity"
-import Helper from "../utils/helper"
+import Helper from "../common/helper"
 
 @Service()
 export default class UserController {

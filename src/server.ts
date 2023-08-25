@@ -2,7 +2,7 @@ import "reflect-metadata"
 import config from "config"
 import express from "express"
 import * as loader from "./loaders"
-import LoggerService from "./utils/logger"
+import LoggerService from "./common/services/logger"
 
 const PORT: string = config.get<string>("port")
 

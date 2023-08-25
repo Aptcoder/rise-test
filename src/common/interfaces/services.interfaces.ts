@@ -16,7 +16,11 @@ export interface IFileService {
     createFile(input: CreateFileInput): Promise<IFile>
     getFiles(): Promise<IFile[]>
     getFile(id: string): Promise<IFile>
-    markUnsafe(fileId: string): Promise<IFile>
+    markUnsafe(
+        fileId: string,
+        reviewerId: string,
+        comment?: string
+    ): Promise<IFile>
 }
 
 export interface IFolderService {

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express"
 import { Inject, Service } from "typedi"
-import { CreateUserDTO } from "../utils/dtos/user.dtos"
-import { IFolderService } from "../utils/interfaces/services.interfaces"
-import Helper from "../utils/helper"
+import { CreateUserDTO } from "../common/dtos/user.dtos"
+import { IFolderService } from "../common/interfaces/services.interfaces"
+import Helper from "../common/helper"
 
 @Service()
 export default class FileController {

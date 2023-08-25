@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
 import { Inject, Service } from "typedi"
 import { Cache } from "cache-manager"
-import { IUser } from "../utils/interfaces/entities.interfaces"
+import { IUser } from "../common/interfaces/entities.interfaces"
 
 @Service()
 export class Auth {

@@ -1,9 +1,9 @@
 import { Router } from "express"
-import { IContainer } from "../utils/types"
-import { StorageService } from "../services/providers/storage/storage.service"
+import { IContainer } from "../common/types"
+import { StorageService } from "../common/services/storage/storage.service"
 import FileController from "../controllers/file.controller"
 import validator from "../middlewares/validator"
-import { FileIdDTO, KeyDTO } from "../utils/dtos/file.dtos"
+import { FileIdDTO, KeyDTO } from "../common/dtos/file.dtos"
 import { Auth as AuthService } from "../middlewares/auth"
 
 export const setupFileRoutes = (container: IContainer) => {
