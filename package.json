@@ -12,8 +12,7 @@
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "migrate": "npm run typeorm -- migration:run",
     "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "heroku-postbuild": "make migration-up"
+    "lint:fix": "eslint --fix"
   },
   "repository": {
     "type": "git",
