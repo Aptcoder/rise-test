@@ -58,7 +58,7 @@ export default class FileService implements IFileService {
         return this.fileRepository.create(input)
     }
 
-    async markUnsafe(fileId: string, reviewerId: string) {
+    async markUnsafe(fileId: string, reviewerId: string, comment?: string) {
         let file = await this.fileRepository.findById(fileId)
         if (!file) {
             throw new NotFoundError("File not found")
@@ -72,7 +72,7 @@ export default class FileService implements IFileService {
 
         const review = await this.reviewRepository.findOne({
             fileId: file.id,
-            userId: reviewerId,
+            reviewerId: reviewerId,
         })
 
         if (review) {
@@ -82,7 +82,7 @@ export default class FileService implements IFileService {
         }
 
         await this.reviewRepository.create({
-            comment: "random",
+            comment,
             fileId: file.id,
             reviewerId: reviewerId,
         })

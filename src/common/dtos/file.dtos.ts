@@ -32,3 +32,9 @@ export class RemoveFileParam extends FolderParamDTO {
     @IsString()
     fileId: string
 }
+
+export class ReviewFileDTO {
+    @IsString()
+    @IsOptional()
+    comment: string
+}

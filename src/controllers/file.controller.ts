@@ -137,9 +137,14 @@ export default class FileController {
         try {
             const { fileId } = req.params
             const { user } = req
-            const file = await this.fileService.markUnsafe(fileId, user!.id)
+            const { comment } = req.body
+            const file = await this.fileService.markUnsafe(
+                fileId,
+                user!.id,
+                comment
+            )
 
-            return Helper.formatResponse(res, "File marked as unsafe", {
+            return Helper.formatResponse(res, "File reviewed", {
                 file,
             })
         } catch (err: any) {

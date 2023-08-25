@@ -11,7 +11,8 @@ import FolderRepository from "../repositories/folder.repository"
 import FolderService from "../services/folder.service"
 import { Auth as AuthService } from "../middlewares/auth"
 import LoggerService from "../common/services/logger"
-import { ILogger } from "src/common/interfaces/services.interfaces"
+import { ILogger } from "../common/interfaces/services.interfaces"
+import ReviewRepository from "../repositories/review.repository"
 
 export const initContainer = async () => {
     Container.set({ id: "logger", type: LoggerService })
@@ -30,6 +31,7 @@ export const initContainer = async () => {
     Container.set({ id: "user_repository", type: UserRepository })
     Container.set({ id: "file_repository", type: FileRepository })
     Container.set({ id: "folder_repository", type: FolderRepository })
+    Container.set({ id: "review_repository", type: ReviewRepository })
 
     // services
     Container.set({ id: "user_service", type: UserService })

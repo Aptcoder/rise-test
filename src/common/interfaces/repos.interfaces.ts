@@ -32,7 +32,7 @@ export interface IReviewRepository {
     findOne(where: Partial<IReview>): Promise<IReview | null>
     findMany(where: Partial<IReview>): Promise<IReview[]>
     create(input: {
-        comment: string
+        comment?: string
         fileId: string
         reviewerId: string
     }): Promise<IReview>

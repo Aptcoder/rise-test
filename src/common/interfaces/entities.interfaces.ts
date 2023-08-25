@@ -36,8 +36,8 @@ export interface IReview {
     id: string
     file: IFile
     fileId: string
-    userId: string
-    user: IUser
+    reviewerId: string
+    reviewer: IUser
     comment?: string
     safe: boolean
     deletedAt: Date
