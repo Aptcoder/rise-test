@@ -5,6 +5,7 @@ import {
     BaseEntity,
     OneToMany,
 } from "typeorm"
+import { Review } from "./review.entity"
 
 export enum UserRole {
     GUEST = "guest",
@@ -51,6 +52,9 @@ export default class User extends BaseEntity {
         default: UserRole.GUEST,
     })
     role!: UserRole
+
+    @OneToMany(() => Review, (review) => review.reviewer)
+    reviews: Review[]
 
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     dateJoined!: Date

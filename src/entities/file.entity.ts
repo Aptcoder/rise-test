@@ -4,7 +4,9 @@ import {
     PrimaryGeneratedColumn,
     Column,
     DeleteDateColumn,
+    OneToMany,
 } from "typeorm"
+import { Review } from "./review.entity"
 
 @Entity()
 export class File extends BaseEntity {
@@ -42,6 +44,9 @@ export class File extends BaseEntity {
         default: true,
     })
     safe: boolean
+
+    @OneToMany(() => Review, (review) => review.file)
+    reviews: Review[]
 
     @DeleteDateColumn({ type: "timestamptz", nullable: true })
     deletedAt: Date
