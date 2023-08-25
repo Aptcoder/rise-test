@@ -143,7 +143,7 @@ export const mockReviewRepository: IReviewRepository = {
     }): Promise<IReview> {
         return Promise.resolve(sampleReview)
     },
-    getFilesReviewedMoreThanTimes: function (times: number): Promise<string[]> {
+    getFilesReviewedMoreThanTimes: function (times: number) {
         throw new Error("Function not implemented.")
     },
 }
