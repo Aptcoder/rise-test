@@ -13,7 +13,9 @@ export default {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        ssl: true,
+        ssl: {
+            rejectUnauthorized: false,
+        },
     },
     redis: {
         host: process.env.REDIS_HOST,
