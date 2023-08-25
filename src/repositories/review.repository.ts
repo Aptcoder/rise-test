@@ -4,6 +4,15 @@ import { Review } from "../entities/review.entity"
 import { FindManyOptions, FindOneOptions } from "typeorm"
 
 export default class ReviewRepository implements IReviewRepository {
+    async getFilesReviewedMoreThanTimes(
+        times: number
+    ): Promise<{ fileId: string }[]> {
+        let fileIds = await Review.query(
+            `SELECT "fileId" FROM "review" GROUP BY "fileId" HAVING COUNT("fileId") > $1`,
+            [times]
+        )
+        return fileIds
+    }
     findOne(where: Partial<IReview>): Promise<IReview | null> {
         return Review.findOne({
             where: {

@@ -36,4 +36,5 @@ export interface IReviewRepository {
         fileId: string
         reviewerId: string
     }): Promise<IReview>
+    getFilesReviewedMoreThanTimes(times: number): Promise<{ fileId: string }[]>
 }
