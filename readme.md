@@ -1,4 +1,4 @@
-## Backend test
+## Backend test [![Aptcoder](https://circleci.com/gh/Aptcoder/rise-test.svg?style=shield)](https://circleci.com/gh/Aptcoder/rise-test)
 
 ### What's special about this submission
 
