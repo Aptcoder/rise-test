@@ -1,4 +1,4 @@
-import { IsArray, IsOptional, IsString } from "class-validator"
+import { IsArray, IsOptional, IsString, IsUUID } from "class-validator"
 
 export class KeyDTO {
     @IsString()
@@ -6,6 +6,7 @@ export class KeyDTO {
 }
 export class FileIdDTO {
     @IsString()
+    @IsUUID("all")
     fileId: string
 }
 
@@ -25,11 +26,13 @@ export class AddFileToFolderBodyDTO {
 
 export class FolderParamDTO {
     @IsString()
+    @IsUUID("all")
     folderId: string
 }
 
 export class RemoveFileParam extends FolderParamDTO {
     @IsString()
+    @IsUUID("all")
     fileId: string
 }
 

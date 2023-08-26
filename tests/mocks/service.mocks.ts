@@ -9,8 +9,11 @@ import { CreateFileInput } from "../../src/services/file.service"
 import { IFile, IFolder } from "../../src/common/interfaces/entities.interfaces"
 import { StorageService } from "../../src/common/services/storage/storage.service"
 import { createReadStream } from "fs"
-import { Multer } from "multer"
+import multer, { Multer, StorageEngine, memoryStorage } from "multer"
 import { CreateFolderDTO } from "../../src/common/dtos/file.dtos"
+import { Request } from "express"
+import { ParamsDictionary } from "express-serve-static-core"
+import { ParsedQs } from "qs"
 
 export const mockLogger: ILogger = {
     info: function (message: string) {
@@ -77,12 +80,41 @@ export const mockFolderService: IFolderService = {
     },
 }
 
+const mockMulterStorage: StorageEngine = {
+    _handleFile: function (
+        req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+        file: Express.Multer.File,
+        callback: (
+            error?: any,
+            info?: Partial<Express.Multer.File> | undefined
+        ) => void
+    ): void {
+        const mStorage = memoryStorage()
+        let updatedFile: Express.MulterS3.File = {
+            key: `${file.originalname}-${Date.now().toString()}`,
+            location: "/random-url",
+        } as Express.MulterS3.File
+        mStorage._handleFile(req, file, (err, info) => {
+            callback(err, Object.assign(updatedFile, info))
+        })
+    },
+    _removeFile: function (
+        req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+        file: Express.Multer.File,
+        callback: (error: Error | null) => void
+    ): void {
+        throw new Error("Function not implemented.")
+    },
+}
+
 export const mockStorageService: StorageService = {
     async getObject(key: string) {
         const stream = createReadStream("./tests/mocks/mockfiles/read.txt")
         return stream
     },
-    upload: {} as Multer,
+    upload: multer({
+        storage: mockMulterStorage,
+    }),
     getObjectSize: function (key: string): Promise<number> {
         return Promise.resolve(5400)
     },

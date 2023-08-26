@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "test": "cross-env NODE_ENV=test && jest ./tests",
+    "test": "cross-env NODE_ENV=test && jest ./tests --runInBand --testTimeout=10000",
     "build:watch": "tsc --w",
     "build": "tsc",
     "start": "node ./dist/src/server.js",

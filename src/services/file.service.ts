@@ -19,6 +19,7 @@ export interface CreateFileInput {
     location: string
     mimetype: string
     size: number
+    key?: string
 }
 
 const videoAndImageTypes = new Set([
