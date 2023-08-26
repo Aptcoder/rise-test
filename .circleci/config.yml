@@ -44,22 +44,22 @@ jobs:
                   command: |
                       npm run test
 
-    # deploy:
-    #     executor: heroku/default
-    #     steps:
-    #         - checkout
-    #         - attach_workspace:
-    #               at: ~/
-    #         - run:
-    #               name: Check files
-    #               command: |
-    #                   ls
-    #         - heroku/install
-    #         - run:
-    #               command: >
-    #                   echo "The command above installs Heroku, the command below deploys.
-    #                   What you do inbetween is up to you!"
-    #         - heroku/deploy-via-git
+    deploy:
+        executor: heroku/default
+        steps:
+            - checkout
+            - attach_workspace:
+                  at: ~/
+            - run:
+                  name: Check files
+                  command: |
+                      ls
+            - heroku/install
+            - run:
+                  command: >
+                      echo "The command above installs Heroku, the command below deploys.
+                      What you do inbetween is up to you!"
+            - heroku/deploy-via-git
 
 workflows:
     test_and_deploy:
@@ -67,9 +67,9 @@ workflows:
             - build
             - test:
                   requires: [build]
-            # - deploy:
-            #       requires: [test]
-            #       filters:
-            #           branches:
-            #               only:
-            #                   - main
+            - deploy:
+                  requires: [test]
+                  filters:
+                      branches:
+                          only:
+                              - main
