@@ -3,7 +3,8 @@ import { Application } from "express"
 import { initContainer } from "./container"
 import initDb from "./db"
 import { setupCron } from "../cron"
-import { ILogger } from "src/common/interfaces/services.interfaces"
+import { ILogger } from "../common/interfaces/services.interfaces"
+import { init as initRedisCache } from "../common/services/cache/redis.setup"
 
 async function init({ expressApp }: { expressApp: Application }) {
     const Container = await initContainer()

@@ -4,12 +4,14 @@ import config from "config"
 import { ILogger } from "src/common/interfaces/services.interfaces"
 
 export const init = async (logger: ILogger) => {
-    var redisConfig = {
-        url: config.get<string>("redis_url"),
-        ttl: 60 * 60 * 60,
-    }
-
     try {
+        if (process.env.NODE_ENV == "test") {
+            return caching("memory")
+        }
+        var redisConfig = {
+            url: config.get<string>("redis_url"),
+            ttl: 60 * 60 * 60,
+        }
         var redisCache = await caching(redisStore, redisConfig)
 
         // listen for redis connection error event

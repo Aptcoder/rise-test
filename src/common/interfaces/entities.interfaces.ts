@@ -5,7 +5,7 @@ export interface IUser {
     email: string
     firstName: string
     lastName: string
-    password: string
+    password?: string
     dateJoined: Date
 
     role: UserRole

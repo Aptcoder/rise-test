@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import express, { Application, NextFunction, Response, Request } from "express"
+import morgan from "morgan"
 import { IContainer } from "../common/types"
 import { setupRoutes } from "../routes/api.routes"
 import { create, engine } from "express-handlebars"
@@ -35,6 +36,7 @@ const loadApp = ({
     app.set("views", "./src/views")
 
     app.use(express.json())
+    app.use(morgan("combined"))
 
     app.use("/api", setupRoutes(Container))
 

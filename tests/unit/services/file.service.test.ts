@@ -58,7 +58,7 @@ describe("File service", () => {
 
         const reviewSpy = jest.spyOn(mockReviewRepository, "create")
 
-        await fileService.markUnsafe("2", "4")
+        await fileService.markUnsafe("2", "4", "hi")
 
         expect(findSpy).toHaveBeenCalledTimes(1)
         expect(findReviewSpy).toHaveBeenCalledTimes(1)

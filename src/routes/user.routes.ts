@@ -13,7 +13,7 @@ export const setupUserRoutes = (container: IContainer) => {
 
     userRouter.get(
         "/",
-        authService.auth(),
+        authService.auth(["admin"]),
         userController.getAllUsers.bind(userController)
     )
 

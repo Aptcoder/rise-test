@@ -15,7 +15,14 @@ export default class UserController {
         const createUserDto: CreateUserDTO = req.body
         try {
             const user = await this.userService.createUser(createUserDto)
-            return Helper.formatResponse(res, "User created", { user })
+            return Helper.formatResponse(
+                res,
+                "User created",
+                {
+                    user,
+                },
+                201
+            )
         } catch (err: any) {
             return next(err)
         }
@@ -32,7 +39,14 @@ export default class UserController {
                 ...createUserDto,
                 role: UserRole.ADMIN,
             })
-            return Helper.formatResponse(res, "Created admin", { admin })
+            return Helper.formatResponse(
+                res,
+                "Created admin",
+                {
+                    admin,
+                },
+                201
+            )
         } catch (err: any) {
             return next(err)
         }

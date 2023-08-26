@@ -55,7 +55,7 @@ export default class UserService implements IUserService {
 
         const comparePasswordResult = await this.comparePassword(
             userPassword,
-            user.password
+            user.password!
         )
         if (!comparePasswordResult) {
             throw new APIError("Invalid password", 401)

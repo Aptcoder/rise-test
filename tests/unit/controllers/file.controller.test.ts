@@ -65,13 +65,16 @@ describe("File controller", () => {
             params: {
                 fileId: "a",
             },
+            body: {
+                comment: "yra",
+            },
         } as unknown as Request
 
         await fileController.markFileUnSafe(req, mockRes, mockNext)
         expect(markSpy).toHaveBeenCalledTimes(1)
         expect(mockRes.send).toHaveBeenCalledWith(
             expect.objectContaining({
-                message: "File marked as unsafe",
+                message: "File reviewed",
             })
         )
     })
