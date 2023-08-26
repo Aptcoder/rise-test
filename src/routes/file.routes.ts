@@ -24,7 +24,6 @@ export const setupFileRoutes = (container: IContainer) => {
         validator({
             param: FileIdDTO,
         }),
-        // authService.auth(),
         fileController.getFileStream.bind(fileController)
     )
 
@@ -33,7 +32,6 @@ export const setupFileRoutes = (container: IContainer) => {
         validator({
             param: FileIdDTO,
         }),
-        // authService.auth(),
         fileController.getFileView.bind(fileController)
     )
 
