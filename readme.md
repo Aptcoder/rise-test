@@ -47,6 +47,8 @@
 
 -   Run `npm install` to install all required dependencies.
 
+-   Create a `.env` file and fill it according to `.env.sample`
+
 -   Run `npm run test` to run tests.
 
 -   Run `npm run start:dev` to run the project.
