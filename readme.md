@@ -1,6 +1,6 @@
 ## Backend test [![Aptcoder](https://circleci.com/gh/Aptcoder/rise-test.svg?style=shield)](https://circleci.com/gh/Aptcoder/rise-test)
 
-### What's special about this submission
+### What's different about this submission?
 
 -   Along with unit tests, I also wrote feature tests for endpoints
 -   Created a web view for easily exploring the audio and video streaming feature
