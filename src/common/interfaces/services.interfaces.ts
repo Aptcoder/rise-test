@@ -1,6 +1,6 @@
 import { CreateFileInput } from "src/services/file.service"
 import { AuthUserDto, CreateUserDTO } from "../dtos/user.dtos"
-import { IFile, IFolder, IUser } from "./entities.interfaces"
+import { IFile, IFileHistory, IFolder, IUser } from "./entities.interfaces"
 import { CreateFolderDTO } from "../dtos/file.dtos"
 
 export interface IUserService {
@@ -16,10 +16,17 @@ export interface IFileService {
     createFile(input: CreateFileInput): Promise<IFile>
     getFiles(): Promise<IFile[]>
     getFile(id: string): Promise<IFile>
+    getHistory(id: string): Promise<IFileHistory[]>
     markUnsafe(
         fileId: string,
         reviewerId: string,
         comment?: string
+    ): Promise<IFile>
+    update(
+        fileId: string,
+        update: {
+            originalName: string
+        }
     ): Promise<IFile>
 }
 

@@ -1,6 +1,12 @@
 import { CreateFileInput } from "src/services/file.service"
 import { CreateUserDTO } from "../dtos/user.dtos"
-import { IFile, IFolder, IReview, IUser } from "./entities.interfaces"
+import {
+    IFile,
+    IFileHistory,
+    IFolder,
+    IReview,
+    IUser,
+} from "./entities.interfaces"
 
 export interface IUserRepository {
     create(createUserDto: CreateUserDTO): Promise<IUser>
@@ -16,6 +22,7 @@ export interface IFileRepository {
     findByKey(key: string): Promise<IFile | null>
     findByKeys(keys: string[]): Promise<IFile[]>
     update(file: IFile, update: {}): Promise<IFile>
+    findHistory(fileId: string): Promise<IFileHistory[]>
     updateMany(condition: Partial<IFile>, update: Partial<IFile>): Promise<{}>
 }
 

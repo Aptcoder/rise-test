@@ -90,4 +90,28 @@ export default class FileService implements IFileService {
 
         return file
     }
+
+    async update(
+        fileId: string,
+        update: {
+            originalName: string
+        }
+    ) {
+        let file = await this.fileRepository.findById(fileId)
+        if (!file) {
+            throw new NotFoundError("File not found")
+        }
+
+        let updatedFile = await this.fileRepository.update(file, update)
+        return updatedFile
+    }
+
+    async getHistory(fileId: string) {
+        let file = await this.fileRepository.findById(fileId)
+        if (!file) {
+            throw new NotFoundError("File not found")
+        }
+        let history = await this.fileRepository.findHistory(fileId)
+        return history
+    }
 }

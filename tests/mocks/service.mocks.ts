@@ -6,7 +6,11 @@ import {
 } from "../../src/common/interfaces/services.interfaces"
 import { sampleFile, sampleFolder, sampleUser } from "./repo.mocks"
 import { CreateFileInput } from "../../src/services/file.service"
-import { IFile, IFolder } from "../../src/common/interfaces/entities.interfaces"
+import {
+    IFile,
+    IFileHistory,
+    IFolder,
+} from "../../src/common/interfaces/entities.interfaces"
 import { StorageService } from "../../src/common/services/storage/storage.service"
 import { createReadStream } from "fs"
 import multer, { Multer, StorageEngine, memoryStorage } from "multer"
@@ -62,6 +66,15 @@ export const mockFileService: IFileService = {
     },
     markUnsafe: function (fileId: string): Promise<IFile> {
         return Promise.resolve(sampleFile)
+    },
+    getHistory: function (id: string): Promise<IFileHistory[]> {
+        throw new Error("Function not implemented.")
+    },
+    update: function (
+        fileId: string,
+        update: { originalName: string }
+    ): Promise<IFile> {
+        throw new Error("Function not implemented.")
     },
 }
 

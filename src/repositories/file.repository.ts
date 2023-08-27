@@ -1,3 +1,4 @@
+import { FileHistory } from "../entities/file-history.entity"
 import { IFile, IUser } from "../common/interfaces/entities.interfaces"
 import { IFileRepository } from "../common/interfaces/repos.interfaces"
 import { File } from "../entities/file.entity"
@@ -56,7 +57,40 @@ export default class FileRepository implements IFileRepository {
         return files
     }
 
+    async findHistory(fileId: string) {
+        const history = await FileHistory.find({
+            where: {
+                fileId,
+            },
+        })
+
+        return history
+    }
+
     async update(file: IFile, update: {}): Promise<IFile> {
+        let versionNumber = 1
+        const recentHistory = await FileHistory.findOne({
+            where: {
+                fileId: file.id,
+            },
+            order: {
+                versionNumber: "DESC",
+            },
+        })
+
+        if (recentHistory) {
+            versionNumber = recentHistory.versionNumber + 1
+        }
+
+        const fh = FileHistory.create({
+            ...file,
+            fileId: file.id,
+            versionNumber,
+            safe: !!file.safe,
+        })
+
+        await fh.save()
+
         Object.assign(file, update)
         return (file as File).save()
     }

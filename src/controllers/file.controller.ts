@@ -151,4 +151,36 @@ export default class FileController {
             return next(err)
         }
     }
+
+    public async updateFile(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { fileId } = req.params
+            const update = req.body
+
+            const updatedFile = await this.fileService.update(fileId, update)
+
+            return Helper.formatResponse(res, "File updated", {
+                file: updatedFile,
+            })
+        } catch (err: any) {
+            return next(err)
+        }
+    }
+
+    public async getFileHistory(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            const { fileId } = req.params
+            const history = await this.fileService.getHistory(fileId)
+
+            return Helper.formatResponse(res, "File history", {
+                history,
+            })
+        } catch (err: any) {
+            return next(err)
+        }
+    }
 }

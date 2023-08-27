@@ -24,8 +24,17 @@ export class FileHistory extends BaseEntity {
     })
     fileId: string
 
-    @ManyToOne(() => File)
+    @ManyToOne(() => File, {
+        onDelete: "CASCADE",
+    })
     file: File
+
+    @Column({
+        nullable: false,
+        default: 1,
+        type: "int",
+    })
+    versionNumber: number
 
     @Column({
         nullable: false,

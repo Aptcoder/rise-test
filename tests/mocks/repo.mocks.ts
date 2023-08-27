@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 import { CreateUserDTO } from "../../src/common/dtos/user.dtos"
 import {
     IFile,
+    IFileHistory,
     IFolder,
     IReview,
     IUser,
@@ -97,6 +98,9 @@ export const mockFileRepository: IFileRepository = {
         return Promise.resolve(sampleFile)
     },
     updateMany: function (condition: {}, update: {}): Promise<{}> {
+        throw new Error("Function not implemented.")
+    },
+    findHistory: function (fileId: string): Promise<IFileHistory[]> {
         throw new Error("Function not implemented.")
     },
 }

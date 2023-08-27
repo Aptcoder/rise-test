@@ -26,6 +26,21 @@ export interface IFile {
     safe: Boolean
 }
 
+export interface IFileHistory {
+    id: string
+    originalName: string
+    versionNumber: number
+    fileId: string
+    file?: IFile
+    size: number
+    location: string
+    deletedAt: Date
+    key: string
+    createdAt: Date
+
+    safe: Boolean
+}
+
 export interface IFolder {
     id: string
     name: string

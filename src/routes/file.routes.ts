@@ -3,7 +3,12 @@ import { IContainer } from "../common/types"
 import { StorageService } from "../common/services/storage/storage.service"
 import FileController from "../controllers/file.controller"
 import validator from "../middlewares/validator"
-import { FileIdDTO, KeyDTO, ReviewFileDTO } from "../common/dtos/file.dtos"
+import {
+    FileIdDTO,
+    KeyDTO,
+    ReviewFileDTO,
+    UpdateFileDTO,
+} from "../common/dtos/file.dtos"
 import { Auth as AuthService } from "../middlewares/auth"
 
 export const setupFileRoutes = (container: IContainer) => {
@@ -59,6 +64,22 @@ export const setupFileRoutes = (container: IContainer) => {
         }),
         authService.auth(["admin"]),
         fileController.markFileUnSafe.bind(fileController)
+    )
+
+    fileRouter.patch(
+        "/:fileId",
+        authService.auth(),
+        validator({
+            body: UpdateFileDTO,
+            param: FileIdDTO,
+        }),
+        fileController.updateFile.bind(fileController)
+    )
+
+    fileRouter.get(
+        "/:fileId/history",
+        authService.auth(),
+        fileController.getFileHistory.bind(fileController)
     )
 
     return fileRouter

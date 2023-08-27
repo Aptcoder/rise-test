@@ -41,3 +41,8 @@ export class ReviewFileDTO {
     @IsOptional()
     comment: string
 }
+
+export class UpdateFileDTO {
+    @IsString()
+    originalName: string
+}
