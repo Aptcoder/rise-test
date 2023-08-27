@@ -8,6 +8,7 @@ import { setupRoutes } from "../routes/api.routes"
 import { create, engine } from "express-handlebars"
 import { APIError } from "../common/errors"
 import { ILogger } from "../common/interfaces/services.interfaces"
+import { MulterError } from "multer"
 
 const loadApp = ({
     app,
@@ -49,6 +50,11 @@ const loadApp = ({
     )
 
     app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+        if (err instanceof MulterError && err.code == "LIMIT_FILE_SIZE") {
+            return res
+                .status(413)
+                .send({ status: "failed", message: err.message })
+        }
         if (!(err instanceof APIError)) {
             logger.error(`Unexpected error: ${err}`)
         }
