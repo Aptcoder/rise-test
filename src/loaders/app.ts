@@ -50,14 +50,15 @@ const loadApp = ({
     )
 
     app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+        if (!(err instanceof APIError)) {
+            logger.error(`Unexpected error: ${err}`)
+        }
         if (err instanceof MulterError && err.code == "LIMIT_FILE_SIZE") {
             return res
                 .status(413)
                 .send({ status: "failed", message: err.message })
         }
-        if (!(err instanceof APIError)) {
-            logger.error(`Unexpected error: ${err}`)
-        }
+
         if (err.type && err.type === "entity.parse.failed") {
             return res
                 .status(400)
