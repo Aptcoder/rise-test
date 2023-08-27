@@ -40,6 +40,7 @@
 -   Docker - for containerization
 -   Redis - as a session store
 -   Type DI - for Dependency Injection
+-   S3 - storage
 
 ### Installation and local setup
 

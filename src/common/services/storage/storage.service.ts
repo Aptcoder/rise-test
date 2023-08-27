@@ -60,7 +60,7 @@ export class StorageService extends BaseService {
         fileFilter: fileFilterFunction,
         limits: {
             parts: Infinity,
-            fileSize: 1024 * 1024 * 250, //Maximum of 200Mb file size
+            fileSize: 1024 * 1024 * 200, //Maximum of 200Mb file size
         },
         storage: multerS3({
             s3: s3,
