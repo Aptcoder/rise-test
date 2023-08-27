@@ -37,7 +37,9 @@
 -   Express
 -   PostgreSQL
 -   TypeORM
--   Type DI for Dependency Injection
+-   Docker - for containerization
+-   Redis - as a session store
+-   Type DI - for Dependency Injection
 
 ### Installation and local setup
 
@@ -45,12 +47,24 @@
 
 -   Run the command to check out to the project directory; `cd rise-test`
 
+#### Without docker
+
 -   Run `npm install` to install all required dependencies.
 
 -   Create a `.env` file and fill it according to `.env.sample`
 
+-   Run `make migrate-up` to run db migrations
+
 -   Run `npm run test` to run tests.
 
 -   Run `npm run start:dev` to run the project.
+
+#### With docker
+
+-   Create a `.env` file and fill it according to `.env.sample`
+
+-   Run `docker compose build` to build the project.
+
+-   Run `docker compose up` with necessary flags to run the project.
 
 You're all set :)
