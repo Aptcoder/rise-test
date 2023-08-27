@@ -30,7 +30,6 @@ describe("/api/files", () => {
 
         const userService = container.get<UserService>("user_service")
         const ds = await setupDb()
-        const password = await bcrypt.hash("password", 10)
         await createUsers()
         ;({ accessToken: adminAccessToken, user: adminUser } =
             await userService.auth({
