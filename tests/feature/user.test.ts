@@ -1,17 +1,11 @@
 import express, { Application } from "express"
-import { setupForTests } from "../setup"
+import { setupDb, setupForTests } from "../setup"
 import { Connection, getConnection } from "typeorm"
 import request from "supertest"
-import User, { UserRole } from "../../src/entities/user.entity"
-import bcrypt from "bcrypt"
-import {
-    useSeederFactory,
-    useDataSource,
-    prepareSeederFactories,
-} from "typeorm-extension"
-import { userFactory } from "../../src/database/factories/user.factory"
+import User from "../../src/entities/user.entity"
 import UserService from "src/services/user.service"
 import { IUser } from "src/common/interfaces/entities.interfaces"
+import { createUsers } from "../setup/factories/user"
 
 describe("/users", () => {
     let app: Application
@@ -25,24 +19,8 @@ describe("/users", () => {
         connection = getConnection("rise")
 
         const userService = container.get<UserService>("user_service")
-        const ds = await useDataSource()
-        await ds.dropDatabase()
-        await ds.runMigrations()
-
-        const password = await bcrypt.hash("password", 10)
-        prepareSeederFactories([userFactory])
-        const user = await useSeederFactory(User).make({
-            email: "sample@sample.com",
-            password: password,
-            role: UserRole.ADMIN,
-        })
-        await user.save()
-
-        const user2 = await useSeederFactory(User).make({
-            email: "sample2@sample.com",
-            password: password,
-        })
-        await user2.save()
+        const ds = await setupDb()
+        await createUsers()
         ;({ accessToken: adminAccessToken, user: adminUser } =
             await userService.auth({
                 email: "sample@sample.com",

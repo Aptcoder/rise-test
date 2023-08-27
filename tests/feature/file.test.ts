@@ -5,11 +5,7 @@ import request from "supertest"
 import User, { UserRole } from "../../src/entities/user.entity"
 import { File } from "../../src/entities/file.entity"
 import bcrypt from "bcrypt"
-import {
-    useSeederFactory,
-    useDataSource,
-    prepareSeederFactories,
-} from "typeorm-extension"
+import { useSeederFactory } from "typeorm-extension"
 import { userFactory } from "../../src/database/factories/user.factory"
 import UserService from "../../src/services/user.service"
 import { IFile, IUser } from "../../src/common/interfaces/entities.interfaces"
@@ -17,6 +13,7 @@ import path from "path"
 import { readFileSync } from "fs"
 import { Review } from "../../src/entities/review.entity"
 import { faker } from "@faker-js/faker"
+import { createUsers } from "../setup/factories/user"
 
 describe("/api/files", () => {
     let app: Application
@@ -34,18 +31,7 @@ describe("/api/files", () => {
         const userService = container.get<UserService>("user_service")
         const ds = await setupDb()
         const password = await bcrypt.hash("password", 10)
-        const user = await useSeederFactory(User).make({
-            email: "sample@sample.com",
-            password: password,
-            role: UserRole.ADMIN,
-        })
-        await user.save()
-
-        const user2 = await useSeederFactory(User).make({
-            email: "sample2@sample.com",
-            password: password,
-        })
-        await user2.save()
+        await createUsers()
         ;({ accessToken: adminAccessToken, user: adminUser } =
             await userService.auth({
                 email: "sample@sample.com",
